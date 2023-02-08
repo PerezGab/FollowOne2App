@@ -11,10 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:fontFamily="@font/prompt"
+        android:text="@string/next_race_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/next_gp_name"
         app:layout_constraintEnd_toStartOf="@+id/next_gp_name"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/next_race_text" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/next_gp_name"
@@ -23,6 +24,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/prompt"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/next_race"
@@ -34,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/prompt"
         app:layout_constraintEnd_toEndOf="@+id/next_gp_name"
         app:layout_constraintStart_toStartOf="@+id/next_gp_name"
         app:layout_constraintTop_toBottomOf="@+id/next_gp_name"
@@ -44,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/prompt"
         app:layout_constraintEnd_toEndOf="@+id/next_gp_date"
         app:layout_constraintStart_toStartOf="@+id/next_gp_date"
         app:layout_constraintTop_toBottomOf="@+id/next_gp_date"
@@ -54,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/prompt"
         android:text="@string/last_race_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/last_gp_name"
         app:layout_constraintStart_toStartOf="parent" />
@@ -62,16 +67,18 @@
         android:id="@+id/next_race_round"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Round 1"
+        android:fontFamily="@font/prompt"
         app:layout_constraintEnd_toEndOf="@+id/next_race"
         app:layout_constraintStart_toStartOf="@+id/next_race"
-        app:layout_constraintTop_toBottomOf="@+id/next_race" />
+        app:layout_constraintTop_toBottomOf="@+id/next_race"
+        tools:text="Round 1" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/last_gp_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/prompt"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/last_race_results"

@@ -1,54 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:layout_margin="4dp"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="4dp"
+    app:cardMaxElevation="8dp"
+    app:cardPreventCornerOverlap="true">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="5-3-2023" />
+        android:background="@color/md_theme_light_inversePrimary"
+        android:padding="2dp">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/round_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/md_theme_light_tertiary"
-        app:layout_constraintStart_toEndOf="@+id/date_text"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Round 1" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/prompt"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5-3-2023" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/location_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/date_text"
-        app:layout_constraintTop_toBottomOf="@+id/round_text"
-        tools:text="Bahrain" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/round_text"
+            android:layout_width="wrap_content"
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/gp_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@id/date_text"
-        app:layout_constraintTop_toBottomOf="@id/location_text"
-        android:textColor="@color/md_theme_light_secondary"
-        tools:text="Formula 1 Gulf Air Bahrain Grand Prix" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/prompt"
+            android:textColor="@color/md_theme_light_tertiary"
+            app:layout_constraintStart_toEndOf="@+id/date_text"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Round 1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/grand_prix_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/prompt"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/date_text"
+            app:layout_constraintTop_toBottomOf="@+id/round_text"
+            tools:text="Formula 1 Gulf Air Bahrain Grand Prix" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/circuit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+
+            android:fontFamily="@font/prompt"
+            android:textColor="@color/md_theme_light_secondary"
+            app:layout_constraintStart_toEndOf="@id/date_text"
+            app:layout_constraintTop_toBottomOf="@id/grand_prix_name_text"
+            tools:text="Bahrain International Circuit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -11,5 +11,6 @@
         android:title="@string/calendar" />
     <item
         android:id="@+id/standingsFragment"
-        android:title="@string/standings" />
+        android:title="@string/standings"
+        android:icon="@drawable/podium"/>
 </menu>

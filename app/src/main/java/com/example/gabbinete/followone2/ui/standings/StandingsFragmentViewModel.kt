@@ -1,7 +1,6 @@
 package com.example.gabbinete.followone2.ui.standings
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.gabbinete.followone2.entities.SeasonStandings
 import com.example.gabbinete.followone2.repo.Repository
@@ -48,13 +47,5 @@ class StandingsFragmentViewModel @Inject constructor(private val repo: Repositor
             }
             _progressStatus.value = false
         }
-    }
-
-    fun getDriverStandingsCompleted() {
-        _driverStandings.value = null
-    }
-
-    fun getConstructorStandingsCompleted() {
-        _constructorStandings.value = null
     }
 }

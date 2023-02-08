@@ -1,22 +1,29 @@
 package com.example.gabbinete.followone2.ui.calendar
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.gabbinete.followone2.entities.GrandPrix
 import com.example.gabbinete.followone2.repo.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CalendarFragmentViewModel(private val repo: Repository): ViewModel() {
+@HiltViewModel
+class CalendarFragmentViewModel @Inject constructor(private val repo: Repository): ViewModel() {
+
+    private val _listGp = MutableStateFlow<List<GrandPrix>?>(null)
+    val listGp = _listGp.asStateFlow()
 
     init {
-
+        setCalendar()
     }
-}
 
-@Suppress("UNCHECKED_CAST")
-class CalendarFragmentViewModelFactory(private val repo: Repository): ViewModelProvider.Factory{
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CalendarFragmentViewModel::class.java)) {
-            return CalendarFragmentViewModel(repo) as T
+    private fun setCalendar() {
+        viewModelScope.launch {
+            _listGp.value = repo.getCurrentSeasonRaces()
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+
