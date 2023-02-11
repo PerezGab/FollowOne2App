@@ -31,6 +31,12 @@ fun NetworkDriver.toDomainDriver(): Driver {
     )
 }
 
+fun NetworkConstructor.toSingleDomainConstructor(): Constructor {
+    return Constructor(
+        constructorId, url, name, nationality
+    )
+}
+
 fun List<NetworkConstructor>.toDomainConstructor(): List<Constructor> {
     return map {
         Constructor(

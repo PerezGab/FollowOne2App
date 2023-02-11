@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardCornerRadius="2dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
     app:cardMaxElevation="8dp"
     app:cardPreventCornerOverlap="true">
@@ -14,7 +14,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/md_theme_light_inversePrimary"
         android:padding="2dp">
 
         <com.google.android.material.textview.MaterialTextView

@@ -1,11 +1,7 @@
 package com.example.gabbinete.followone2.repo
 
-import com.example.gabbinete.followone2.entities.Driver
-import com.example.gabbinete.followone2.entities.GrandPrix
-import com.example.gabbinete.followone2.entities.SeasonStandings
-import kotlinx.coroutines.CoroutineScope
+import com.example.gabbinete.followone2.entities.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -13,12 +9,12 @@ class Repository @Inject constructor(private val remoteDataSource: RemoteDataSou
     suspend fun getCurrentDrivers(): List<Driver> =
         withContext(Dispatchers.IO) { remoteDataSource.getCurrentDrivers() }
 
-    suspend fun getCurrentSeasonDriverStandings(): List<SeasonStandings> =
+    suspend fun getCurrentSeasonDriverStandings(): List<DriverStandings> =
         withContext(Dispatchers.IO) {
             remoteDataSource.getCurrentSeasonDriverStandings()
         }
 
-    suspend fun getCurrentSeasonConstructorStandings(): List<SeasonStandings> =
+    suspend fun getCurrentSeasonConstructorStandings(): List<ConstructorStandings> =
         withContext(Dispatchers.IO) {
             remoteDataSource.getCurrentSeasonConstructorStandings()
         }
@@ -38,8 +34,8 @@ class Repository @Inject constructor(private val remoteDataSource: RemoteDataSou
 
 interface RemoteDataSource {
     suspend fun getCurrentDrivers(): List<Driver>
-    suspend fun getCurrentSeasonDriverStandings(): List<SeasonStandings>
-    suspend fun getCurrentSeasonConstructorStandings(): List<SeasonStandings>
+    suspend fun getCurrentSeasonDriverStandings(): List<DriverStandings>
+    suspend fun getCurrentSeasonConstructorStandings(): List<ConstructorStandings>
     suspend fun getCurrentSeasonRaces(): List<GrandPrix>
     suspend fun getLastRace(): GrandPrix
     suspend fun getRace(season: String, round: String): GrandPrix

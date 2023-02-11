@@ -1,33 +1,26 @@
 package com.example.gabbinete.followone2.ui.standings
 
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gabbinete.followone2.databinding.FragmentStandingsBinding
-import com.example.gabbinete.followone2.entities.SeasonStandings
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import com.google.android.material.tabs.TabLayoutMediator
 
-@AndroidEntryPoint
 class StandingsFragment : Fragment() {
 
-    private val viewModel: StandingsFragmentViewModel by viewModels()
+    private lateinit var binding: FragmentStandingsBinding
+    private lateinit var adapter: StandingsTabAdapter
 
-    lateinit var binding: FragmentStandingsBinding
-    lateinit var adapter: StandingsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Inflate the layout for this fragment
         binding = FragmentStandingsBinding.inflate(inflater, container, false)
-        adapter = StandingsAdapter()
+        adapter = StandingsTabAdapter(this)
 
         return binding.root
     }
@@ -35,42 +28,14 @@ class StandingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            viewModel.driverStandings.collect {
-                it?.let {
-                    setupStandingViews(it)
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.constructorStandings.collect {
-                it?.let {
-                    setupStandingViews(it)
-                }
-            }
-        }
-
-        Log.d(
-            "StandingsFragments",
-            "isAttachedToWindow is ${binding.standingsList.isAttachedToWindow}"
-        )
-    }
-
-    private fun setupStandingViews(
-        data: List<SeasonStandings>
-    ) {
-        adapter.addStandings(data[0].standings)
         binding.apply {
-            "Season ${data[0].season}".also { seasonText.text = it }
-            "Round ${data[0].round}".also { roundsText.text = it }
-        }
-
-        binding.apply {
-            standingsList.apply {
-                adapter = this@StandingsFragment.adapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
+            viewPager.adapter = adapter
+            TabLayoutMediator(standingsTab, viewPager) { tab, position ->
+                when (position) {
+                    0 -> tab.text = "Drivers"
+                    1 -> tab.text = "Constructors"
+                }
+            }.attach()
         }
     }
 }
