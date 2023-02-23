@@ -1,8 +1,14 @@
 package com.example.gabbinete.followone2.api
 
-import com.example.gabbinete.followone.repo.*
-import com.example.gabbinete.followone2.entities.*
-import com.example.gabbinete.followone2.repo.RemoteDataSource
+import com.example.gabbinete.followone2.domain.ConstructorStandings
+import com.example.gabbinete.followone2.domain.Driver
+import com.example.gabbinete.followone2.domain.DriverStandings
+import com.example.gabbinete.followone2.domain.GrandPrix
+import com.example.gabbinete.followone2.repo.*
+import com.example.gabbinete.followone2.util.toDomainConstructorStandings
+import com.example.gabbinete.followone2.util.toDomainDriver
+import com.example.gabbinete.followone2.util.toDomainDriverStandings
+import com.example.gabbinete.followone2.util.toDomainGrandPrixList
 import javax.inject.Inject
 
 

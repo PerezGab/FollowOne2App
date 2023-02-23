@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gabbinete.followone2.databinding.FragmentCalendarBinding
-import com.example.gabbinete.followone2.entities.GrandPrix
+import com.example.gabbinete.followone2.domain.GrandPrix
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

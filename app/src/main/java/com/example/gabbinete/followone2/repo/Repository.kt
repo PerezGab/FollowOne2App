@@ -1,6 +1,9 @@
 package com.example.gabbinete.followone2.repo
 
-import com.example.gabbinete.followone2.entities.*
+import com.example.gabbinete.followone2.domain.ConstructorStandings
+import com.example.gabbinete.followone2.domain.Driver
+import com.example.gabbinete.followone2.domain.DriverStandings
+import com.example.gabbinete.followone2.domain.GrandPrix
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -39,4 +42,11 @@ interface RemoteDataSource {
     suspend fun getCurrentSeasonRaces(): List<GrandPrix>
     suspend fun getLastRace(): GrandPrix
     suspend fun getRace(season: String, round: String): GrandPrix
+}
+
+interface LocalDataSource {
+    suspend fun getDriversStandings(): List<DriverStandings>
+    suspend fun getConstructorStandings(): List<ConstructorStandings>
+    suspend fun getSeasonRaces(): List<GrandPrix>
+//    suspend fun getLastRace(): GrandPrix
 }

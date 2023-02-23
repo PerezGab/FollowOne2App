@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gabbinete.followone2.databinding.FragmentConstructorStandingsBinding
-import com.example.gabbinete.followone2.entities.ConstructorStandings
+import com.example.gabbinete.followone2.domain.ConstructorStandings
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

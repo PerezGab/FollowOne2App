@@ -1,7 +1,71 @@
-package com.example.gabbinete.followone.repo
+package com.example.gabbinete.followone2.util
 
 import com.example.gabbinete.followone2.api.models.*
-import com.example.gabbinete.followone2.entities.*
+import com.example.gabbinete.followone2.database.entities.LocalConstructor
+import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
+import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
+import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
+import com.example.gabbinete.followone2.domain.*
+
+@JvmName("toDomainDriverStandingsLocalDriverStandings")
+fun List<LocalDriverStandings>.toDomainDriverStandings(): List<DriverStandings> {
+    return map {
+        DriverStandings(
+            position = it.position,
+            positionText = it.positionText,
+            points = it.points,
+            wins = it.wins,
+            driver = it.localDriver.toDomainDriver(),
+            constructors = it.localConstructors.toDomainConstructor()
+        )
+    }
+}
+
+@JvmName("toDomainConstructorStandingsLocalConstructorStandings")
+fun List<LocalConstructorStandings>.toDomainConstructorStandings(): List<ConstructorStandings> {
+    return map {
+        ConstructorStandings(
+            points = it.points,
+            position = it.position,
+            positionText = it.positionText,
+            wins = it.wins,
+            constructor = it.constructor.toDomainConstructor()
+        )
+    }
+}
+
+@JvmName("toDomainConstructorLocalConstructor")
+fun List<LocalConstructor>.toDomainConstructor(): List<Constructor> {
+    return map {
+        Constructor(
+            constructorId = it.constructorId,
+            url = it.url,
+            name = it.name,
+            nationality = it.nationality
+        )
+    }
+}
+
+fun List<LocalGrandPrix>.toDomainGrandPrix(): List<GrandPrix> {
+    return map {
+        GrandPrix(
+            season = it.season,
+            round = it.round,
+            url = it.url,
+            raceName = it.raceName,
+            circuit = it.circuit,
+            date = it.date,
+            time = it.time,
+            raceResults = it.raceResults,
+            qualifying = it.qualifying,
+            qualifyingResults = it.qualifyingResults,
+            firstPractice = it.firstPractice,
+            secondPractice = it.secondPractice,
+            thirdPractice = it.thirdPractice,
+            sprint = it.sprint
+        )
+    }
+}
 
 fun List<NetworkDriver>.toDomainDriver(): List<Driver> {
     return map {
@@ -16,25 +80,6 @@ fun List<NetworkDriver>.toDomainDriver(): List<Driver> {
             nationality = it.nationality
         )
     }
-}
-
-fun NetworkDriver.toDomainDriver(): Driver {
-    return Driver(
-        driverId = driverId,
-        permanentNumber = permanentNumber,
-        code = code,
-        url = url,
-        givenName = givenName,
-        familyName = familyName,
-        dateOfBirth = dateOfBirth,
-        nationality = nationality
-    )
-}
-
-fun NetworkConstructor.toSingleDomainConstructor(): Constructor {
-    return Constructor(
-        constructorId, url, name, nationality
-    )
 }
 
 fun List<NetworkConstructor>.toDomainConstructor(): List<Constructor> {
@@ -55,8 +100,8 @@ fun List<NetworkDriverStanding>.toDomainDriverStandings(): List<DriverStandings>
             positionText = it.positionText,
             points = it.points,
             wins = it.wins,
-            driver = it.networkDriver,
-            constructors = it.constructors
+            driver = it.networkDriver.toDomainDriver(),
+            constructors = it.constructors.toDomainConstructor()
         )
     }
 }
@@ -68,7 +113,7 @@ fun List<NetworkConstructorStanding>.toDomainConstructorStandings(): List<Constr
             positionText = it.positionText,
             points = it.points,
             wins = it.wins,
-            constructor = it.constructor
+            constructor = it.constructor.toDomainConstructor()
         )
     }
 }
@@ -93,25 +138,6 @@ fun List<ConstructorStandingList>.toDomainConstructorStandingList(): List<Season
     }
 }
 
-fun Race.toDomainGrandPrix(): GrandPrix {
-    return GrandPrix(
-        season = season,
-        round = round,
-        url = url,
-        raceName = raceName,
-        circuit = circuit.toDomainCircuit(),
-        date = date,
-        time = time,
-        raceResults = raceResults,
-        qualifyingResults = qualifyingResults,
-        firstPractice = firstPractice,
-        secondPractice = secondPractice,
-        thirdPractice = thirdPractice,
-        qualifying = qualifying,
-        sprint = sprint
-    )
-}
-
 fun List<Race>.toDomainGrandPrixList(): List<GrandPrix> {
     return map {
         GrandPrix(
@@ -131,22 +157,4 @@ fun List<Race>.toDomainGrandPrixList(): List<GrandPrix> {
             sprint = it.sprint
         )
     }
-}
-
-fun NetworkCircuit.toDomainCircuit(): Circuit {
-    return Circuit(
-        circuitId = circuitId,
-        url = url,
-        circuitName = circuitName,
-        location = location.toDomainLocation()
-    )
-}
-
-fun NetworkLocation.toDomainLocation(): Location {
-    return Location(
-        lat = lat,
-        _long = _long,
-        locality = locality,
-        country = country
-    )
 }

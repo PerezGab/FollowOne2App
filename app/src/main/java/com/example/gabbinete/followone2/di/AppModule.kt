@@ -1,8 +1,14 @@
 package com.example.gabbinete.followone2.di
 
+import android.app.Application
+import androidx.room.Room
 import com.example.gabbinete.followone2.api.ApiDataSource
 import com.example.gabbinete.followone2.api.ApiService
+import com.example.gabbinete.followone2.database.F1Dao
+import com.example.gabbinete.followone2.database.F1Database
 import com.example.gabbinete.followone2.repo.RemoteDataSource
+import com.example.gabbinete.followone2.util.GsonParser
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +23,7 @@ private const val API_URL = "https://ergast.com/api/f1/"
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RemoteModule {
+object AppModule {
 
 //private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
@@ -60,5 +66,12 @@ object RemoteModule {
     @Provides
     @Singleton
     fun remoteDataSourceProvider(apiDataSource: ApiDataSource): RemoteDataSource = apiDataSource
+
+    @Provides
+    @Singleton
+    fun databaseProvider(app: Application): F1Dao =
+        Room.databaseBuilder(app, F1Database::class.java, "follow-one-db")
+            .addTypeConverter(GsonParser(Gson()))
+            .build().f1Dao()
 }
 

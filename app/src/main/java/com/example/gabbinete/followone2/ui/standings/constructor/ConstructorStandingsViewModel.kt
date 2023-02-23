@@ -2,7 +2,7 @@ package com.example.gabbinete.followone2.ui.standings.constructor
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gabbinete.followone2.entities.ConstructorStandings
+import com.example.gabbinete.followone2.domain.ConstructorStandings
 import com.example.gabbinete.followone2.repo.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
