@@ -7,8 +7,10 @@ import com.example.gabbinete.followone2.repo.LocalDataSource
 import com.example.gabbinete.followone2.util.toDomainConstructorStandings
 import com.example.gabbinete.followone2.util.toDomainDriverStandings
 import com.example.gabbinete.followone2.util.toDomainGrandPrix
+import com.example.gabbinete.followone2.util.toLocalGrandPrixList
+import javax.inject.Inject
 
-class RoomDataSource(private val room: F1Dao) : LocalDataSource {
+class RoomDataSource @Inject constructor(private val room: F1Dao) : LocalDataSource {
 
     override suspend fun getDriversStandings(): List<DriverStandings> =
         room.getDriverStandings().toDomainDriverStandings()
@@ -19,6 +21,9 @@ class RoomDataSource(private val room: F1Dao) : LocalDataSource {
     override suspend fun getSeasonRaces(): List<GrandPrix> =
         room.getSeasonRaces().toDomainGrandPrix()
 
-//    override suspend fun getLastRace(): GrandPrix = TODO()
+    override suspend fun insertSeasonRaces(races: List<GrandPrix>) =
+        room.insertSeasonRaces(races.toLocalGrandPrixList())
+
+    //    override suspend fun getLastRace(): GrandPrix = TODO()
 //        room.getLastRace().toDomainGrandPrix()
 }

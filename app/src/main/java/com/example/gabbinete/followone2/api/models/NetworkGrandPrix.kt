@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Race(
+data class NetworkGrandPrix(
     val season: String,
     val round: String,
     val url: String,

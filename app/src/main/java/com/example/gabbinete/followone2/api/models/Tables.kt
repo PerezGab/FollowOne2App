@@ -22,7 +22,7 @@ data class ConstructorTable(
 data class RaceTable(
     val season: String,
     val round: String,
-    @SerializedName("Races") val races: List<Race>
+    @SerializedName("Races") val networkGrandPrixes: List<NetworkGrandPrix>
 ) : Parcelable
 
 @Parcelize

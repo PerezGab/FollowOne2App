@@ -6,7 +6,10 @@ import com.example.gabbinete.followone2.api.ApiDataSource
 import com.example.gabbinete.followone2.api.ApiService
 import com.example.gabbinete.followone2.database.F1Dao
 import com.example.gabbinete.followone2.database.F1Database
+import com.example.gabbinete.followone2.database.RoomDataSource
+import com.example.gabbinete.followone2.repo.LocalDataSource
 import com.example.gabbinete.followone2.repo.RemoteDataSource
+import com.example.gabbinete.followone2.util.Converters
 import com.example.gabbinete.followone2.util.GsonParser
 import com.google.gson.Gson
 import dagger.Module
@@ -71,7 +74,11 @@ object AppModule {
     @Singleton
     fun databaseProvider(app: Application): F1Dao =
         Room.databaseBuilder(app, F1Database::class.java, "follow-one-db")
-            .addTypeConverter(GsonParser(Gson()))
+            .addTypeConverter(Converters(GsonParser(Gson())))
             .build().f1Dao()
+
+    @Provides
+    @Singleton
+    fun localDataSourceProvider(roomDataSource: RoomDataSource): LocalDataSource = roomDataSource
 }
 

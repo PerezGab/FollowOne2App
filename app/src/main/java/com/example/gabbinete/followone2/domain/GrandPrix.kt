@@ -3,6 +3,7 @@ package com.example.gabbinete.followone2.domain
 import com.example.gabbinete.followone2.api.models.QualifyingResult
 import com.example.gabbinete.followone2.api.models.RaceResult
 import com.example.gabbinete.followone2.api.models.Session
+import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
 
 
 class GrandPrix(
@@ -40,6 +41,26 @@ class GrandPrix(
                 null
             )
         }
+    }
+
+    fun toLocalGrandPrix(): LocalGrandPrix {
+        return LocalGrandPrix(
+            id = null,
+            season,
+            round,
+            url,
+            raceName,
+            circuit,
+            date,
+            time,
+            raceResults,
+            qualifyingResults,
+            firstPractice,
+            secondPractice,
+            thirdPractice,
+            qualifying,
+            sprint
+        )
     }
 }
 

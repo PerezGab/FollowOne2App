@@ -138,7 +138,11 @@ fun List<ConstructorStandingList>.toDomainConstructorStandingList(): List<Season
     }
 }
 
-fun List<Race>.toDomainGrandPrixList(): List<GrandPrix> {
+fun List<GrandPrix>.toLocalGrandPrixList(): List<LocalGrandPrix> {
+    return map { it.toLocalGrandPrix() }
+}
+
+fun List<NetworkGrandPrix>.toDomainGrandPrixList(): List<GrandPrix> {
     return map {
         GrandPrix(
             season = it.season,
