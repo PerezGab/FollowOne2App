@@ -1,7 +1,4 @@
-package com.example.gabbinete.followone2.entities
-
-import com.example.gabbinete.followone2.api.models.NetworkConstructor
-import com.example.gabbinete.followone2.api.models.NetworkDriver
+package com.example.gabbinete.followone2.domain
 
 abstract class Standings(
     open val position: String,
@@ -15,8 +12,8 @@ class DriverStandings(
     positionText: String,
     points: String,
     wins: String,
-    val driver: NetworkDriver,
-    val constructors: List<NetworkConstructor>
+    val driver: Driver,
+    val constructors: List<Constructor>
 ) :
     Standings(
         position, positionText,
@@ -38,7 +35,7 @@ class ConstructorStandings(
     positionText: String,
     points: String,
     wins: String,
-    val constructor: NetworkConstructor
+    val constructor: Constructor
 ) : Standings(
     position, positionText,
     points, wins

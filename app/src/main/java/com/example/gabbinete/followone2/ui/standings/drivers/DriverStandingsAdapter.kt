@@ -5,10 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gabbinete.followone2.entities.DriverStandings
-import com.example.gabbinete.followone2.entities.Standings
-import com.example.gabbinete.followone.repo.toDomainDriver
 import com.example.gabbinete.followone2.databinding.StandingListItemBinding
+import com.example.gabbinete.followone2.domain.DriverStandings
+import com.example.gabbinete.followone2.domain.Standings
 
 private const val TAG = "StandingsAdapter"
 
@@ -36,7 +35,7 @@ class StandingsAdapter : RecyclerView.Adapter<StandingsAdapter.DriverStandingsVi
         fun bind(item: DriverStandings) {
             Log.d(TAG, "DriverStandingsViewHolder.bind() is called")
             binding.finalPositionText.text = item.positionText
-            item.driver.toDomainDriver().mapFlag?.let { binding.flagImage.setImageResource(it) }
+            item.driver.mapFlag?.let { binding.flagImage.setImageResource(it) }
             binding.nameText.text = item.driver.familyName
             binding.constructorText.text = item.constructors[0].name
             binding.pointsText.text = item.points

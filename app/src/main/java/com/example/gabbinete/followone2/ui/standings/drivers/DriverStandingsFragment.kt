@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gabbinete.followone2.databinding.FragmentDriverStandingsBinding
-import com.example.gabbinete.followone2.entities.DriverStandings
+import com.example.gabbinete.followone2.domain.DriverStandings
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

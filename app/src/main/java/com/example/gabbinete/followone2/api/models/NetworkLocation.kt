@@ -1,6 +1,7 @@
 package com.example.gabbinete.followone2.api.models
 
 import android.os.Parcelable
+import com.example.gabbinete.followone2.domain.Location
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -10,4 +11,13 @@ data class NetworkLocation(
     @SerializedName("long") val _long: String,
     val locality: String,
     val country: String
-) : Parcelable
+) : Parcelable {
+    fun toDomainLocation(): Location {
+        return Location(
+            lat = lat,
+            _long = _long,
+            locality = locality,
+            country = country
+        )
+    }
+}

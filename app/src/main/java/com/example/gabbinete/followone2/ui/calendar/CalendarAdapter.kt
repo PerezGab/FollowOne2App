@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gabbinete.followone2.databinding.GrandprixListItemBinding
-import com.example.gabbinete.followone2.entities.GrandPrix
+import com.example.gabbinete.followone2.domain.GrandPrix
 
 const val TAG = "CalendarAdapter"
 

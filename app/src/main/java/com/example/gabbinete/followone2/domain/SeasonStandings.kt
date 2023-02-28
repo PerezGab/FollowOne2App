@@ -1,4 +1,4 @@
-package com.example.gabbinete.followone2.entities
+package com.example.gabbinete.followone2.domain
 
 class SeasonStandings(
     val season: String,

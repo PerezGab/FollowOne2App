@@ -1,6 +1,7 @@
 package com.example.gabbinete.followone2.api.models
 
 import android.os.Parcelable
+import com.example.gabbinete.followone2.domain.Circuit
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -10,4 +11,13 @@ data class NetworkCircuit(
     val url: String,
     val circuitName: String,
     @SerializedName("Location") val location: NetworkLocation
-) : Parcelable
+) : Parcelable {
+    fun toDomainCircuit(): Circuit {
+        return Circuit(
+            circuitId = circuitId,
+            url = url,
+            circuitName = circuitName,
+            location = location.toDomainLocation()
+        )
+    }
+}

@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.gabbinete.followone2.api.ApiDataSource
-import com.example.gabbinete.followone2.repo.Repository
 import com.example.gabbinete.followone2.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
