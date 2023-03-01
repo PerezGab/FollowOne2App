@@ -5,17 +5,15 @@ import androidx.room.PrimaryKey
 import com.example.gabbinete.followone2.api.models.QualifyingResult
 import com.example.gabbinete.followone2.api.models.RaceResult
 import com.example.gabbinete.followone2.api.models.Session
-import com.example.gabbinete.followone2.domain.Circuit
 import com.example.gabbinete.followone2.domain.GrandPrix
 
 @Entity(tableName = "grand_prix")
 data class LocalGrandPrix(
-    @PrimaryKey(autoGenerate = true) val id: Int?,
     val season: String,
     val round: String?,
     val url: String?,
     val raceName: String,
-    val circuit: Circuit?,
+    val circuit: LocalCircuit?,
     val date: String?,
     val time: String?,
     val raceResults: List<RaceResult>?,
@@ -24,7 +22,8 @@ data class LocalGrandPrix(
     val secondPractice: Session?,
     val thirdPractice: Session?,
     val qualifying: Session?,
-    val sprint: Session?
+    val sprint: Session?,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null
 ) {
     fun toDomainGrandPrix(): GrandPrix {
         return GrandPrix(
@@ -32,7 +31,7 @@ data class LocalGrandPrix(
             round,
             url,
             raceName,
-            circuit,
+            circuit?.toDomainCircuit(),
             date,
             time,
             raceResults,

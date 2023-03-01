@@ -1,28 +1,24 @@
 package com.example.gabbinete.followone2.database
 
-import com.example.gabbinete.followone2.domain.ConstructorStandings
-import com.example.gabbinete.followone2.domain.DriverStandings
-import com.example.gabbinete.followone2.domain.GrandPrix
+import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
+import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
+import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
 import com.example.gabbinete.followone2.repo.LocalDataSource
-import com.example.gabbinete.followone2.util.toDomainConstructorStandings
-import com.example.gabbinete.followone2.util.toDomainDriverStandings
-import com.example.gabbinete.followone2.util.toDomainGrandPrix
-import com.example.gabbinete.followone2.util.toLocalGrandPrixList
 import javax.inject.Inject
 
 class RoomDataSource @Inject constructor(private val room: F1Dao) : LocalDataSource {
 
-    override suspend fun getDriversStandings(): List<DriverStandings> =
-        room.getDriverStandings().toDomainDriverStandings()
+    override suspend fun getDriversStandings(): List<LocalDriverStandings> =
+        room.getDriverStandings()
 
-    override suspend fun getConstructorStandings(): List<ConstructorStandings> =
-        room.getConstructorStandings().toDomainConstructorStandings()
+    override suspend fun getConstructorStandings(): List<LocalConstructorStandings> =
+        room.getConstructorStandings()
 
-    override suspend fun getSeasonRaces(): List<GrandPrix> =
-        room.getSeasonRaces().toDomainGrandPrix()
+    override suspend fun getSeasonRaces(): List<LocalGrandPrix> =
+        room.getSeasonRaces()
 
-    override suspend fun insertSeasonRaces(races: List<GrandPrix>) =
-        room.insertSeasonRaces(races.toLocalGrandPrixList())
+    override suspend fun insertSeasonRaces(races: List<LocalGrandPrix>) =
+        room.insertSeasonRaces(races)
 
     //    override suspend fun getLastRace(): GrandPrix = TODO()
 //        room.getLastRace().toDomainGrandPrix()
