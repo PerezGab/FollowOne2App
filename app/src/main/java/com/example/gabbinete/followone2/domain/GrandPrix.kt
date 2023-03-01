@@ -45,12 +45,11 @@ class GrandPrix(
 
     fun toLocalGrandPrix(): LocalGrandPrix {
         return LocalGrandPrix(
-            id = null,
             season,
             round,
             url,
             raceName,
-            circuit,
+            circuit?.toLocalCircuit(),
             date,
             time,
             raceResults,

@@ -1,8 +1,8 @@
 package com.example.gabbinete.followone2.api.models
 
 import android.os.Parcelable
-import com.example.gabbinete.followone2.api.models.NetworkConstructor
-import com.example.gabbinete.followone2.api.models.NetworkDriver
+import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
+import com.example.gabbinete.followone2.util.toLocalConstructorList
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -14,4 +14,15 @@ data class NetworkDriverStanding(
     val wins: String,
     @SerializedName("Driver") val networkDriver: NetworkDriver,
     @SerializedName("Constructors") val constructors: List<NetworkConstructor>
-) : Parcelable
+) : Parcelable {
+    fun toLocalDriverStandings(): LocalDriverStandings {
+        return LocalDriverStandings(
+            position,
+            positionText,
+            points,
+            wins,
+            networkDriver.toLocalDriver(),
+            constructors.toLocalConstructorList()
+        )
+    }
+}

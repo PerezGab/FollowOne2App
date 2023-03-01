@@ -5,7 +5,7 @@ import com.example.gabbinete.followone2.database.entities.LocalDriver
 import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
 import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
 
-interface Repository {
+interface RemoteDataSource {
     suspend fun getCurrentDrivers(): List<LocalDriver>
     suspend fun getCurrentSeasonDriverStandings(): List<LocalDriverStandings>
     suspend fun getCurrentSeasonConstructorStandings(): List<LocalConstructorStandings>

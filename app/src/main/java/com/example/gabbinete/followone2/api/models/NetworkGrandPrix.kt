@@ -1,7 +1,7 @@
 package com.example.gabbinete.followone2.api.models
 
 import android.os.Parcelable
-import com.example.gabbinete.followone2.domain.GrandPrix
+import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -23,13 +23,14 @@ data class NetworkGrandPrix(
     @SerializedName("Qualifying") val qualifying: Session,
     @SerializedName("Sprint") val sprint: Session
 ) : Parcelable {
-    fun toDomainGrandPrix(): GrandPrix {
-        return GrandPrix(
+    fun toLocalGrandPrix(): LocalGrandPrix {
+        return LocalGrandPrix(
+            id = null,
             season = season,
             round = round,
             url = url,
             raceName = raceName,
-            circuit = circuit.toDomainCircuit(),
+            circuit = circuit.toLocalCircuit(),
             date = date,
             time = time,
             raceResults = raceResults,
