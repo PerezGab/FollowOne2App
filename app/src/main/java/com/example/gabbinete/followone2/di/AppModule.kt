@@ -9,6 +9,8 @@ import com.example.gabbinete.followone2.database.F1Database
 import com.example.gabbinete.followone2.database.RoomDataSource
 import com.example.gabbinete.followone2.repo.LocalDataSource
 import com.example.gabbinete.followone2.repo.RemoteDataSource
+import com.example.gabbinete.followone2.repo.Repository
+import com.example.gabbinete.followone2.repo.RepositoryImpl
 import com.example.gabbinete.followone2.util.Converters
 import com.example.gabbinete.followone2.util.GsonParser
 import com.google.gson.Gson
@@ -80,5 +82,9 @@ object AppModule {
     @Provides
     @Singleton
     fun localDataSourceProvider(roomDataSource: RoomDataSource): LocalDataSource = roomDataSource
+
+    @Provides
+    @Singleton
+    fun repositoryProvider(api: RemoteDataSource, dao: LocalDataSource): Repository = RepositoryImpl(api, dao)
 }
 

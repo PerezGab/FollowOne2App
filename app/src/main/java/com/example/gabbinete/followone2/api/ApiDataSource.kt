@@ -1,9 +1,6 @@
 package com.example.gabbinete.followone2.api
 
-import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
-import com.example.gabbinete.followone2.database.entities.LocalDriver
-import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
-import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
+import com.example.gabbinete.followone2.database.entities.*
 import com.example.gabbinete.followone2.repo.RemoteDataSource
 import com.example.gabbinete.followone2.util.toLocalConstructorStandings
 import com.example.gabbinete.followone2.util.toLocalDriver
@@ -34,12 +31,12 @@ class ApiDataSource @Inject constructor(private val apiService: ApiService) : Re
         apiService.getCurrentSeasonRaces().mrData.raceTable.networkGrandPrixes.toLocalGrandPrixList()
     }
 
-    override suspend fun getLastRace(): LocalGrandPrix = withContext(Dispatchers.IO) {
-        apiService.getLastRace().mrData.raceTable.networkGrandPrixes[0].toLocalGrandPrix()
+    override suspend fun getLastRace(): LocalLastRace = withContext(Dispatchers.IO) {
+        apiService.getLastRace().mrData.raceTable.networkGrandPrixes[0].toLocalLastRace()
     }
 
-    override suspend fun getRace(season: String, round: String): LocalGrandPrix =
+    override suspend fun getRace(round: String): LocalGrandPrix =
         withContext(Dispatchers.IO) {
-            apiService.getRace(season, round).mrData.raceTable.networkGrandPrixes[0].toLocalGrandPrix()
+            apiService.getRace(round).mrData.raceTable.networkGrandPrixes[0].toLocalGrandPrix()
         }
 }
