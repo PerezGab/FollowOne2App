@@ -4,19 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
-import com.example.gabbinete.followone2.database.entities.LocalDriver
-import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
-import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
+import com.example.gabbinete.followone2.database.entities.*
 
 @Dao
 interface F1Dao {
 
-    @Query("SELECT * FROM drivers")
-    suspend fun getDrivers(): List<LocalDriver>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDrivers(localDrivers: List<LocalDriver>)
+//    @Query("SELECT * FROM drivers")
+//    suspend fun getDrivers(): List<LocalDriver>
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertDrivers(localDrivers: List<LocalDriver>)
 
     @Query("SELECT * FROM driver_standings")
     suspend fun getDriverStandings(): List<LocalDriverStandings>
@@ -38,6 +35,14 @@ interface F1Dao {
 
     @Query("DELETE FROM grand_prix")
     suspend fun clearSeasonRaces()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertLastRace(race: LocalLastRace)
+
+    @Query("SELECT * FROM last_race")
+    suspend fun getLastRace(): LocalLastRace
+
+
 
 //    @Query("SELECT * FROM last_race")
 //    suspend fun getLastRace(): LocalGrandPrix

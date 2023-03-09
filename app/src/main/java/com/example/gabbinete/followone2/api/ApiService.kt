@@ -23,6 +23,6 @@ interface ApiService {
     @GET("current/last/results")
     suspend fun getLastRace(): RaceResponse
 
-    @GET("{season}/{round}")
-    suspend fun getRace(@Path("season") season: String, @Path("round") round: String): RaceResponse
+    @GET("current/{round}")
+    suspend fun getRace(@Path("round") round: String): RaceResponse
 }

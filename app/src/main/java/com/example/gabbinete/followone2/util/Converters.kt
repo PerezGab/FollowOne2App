@@ -5,6 +5,9 @@ import androidx.room.TypeConverter
 import com.example.gabbinete.followone2.api.models.QualifyingResult
 import com.example.gabbinete.followone2.api.models.RaceResult
 import com.example.gabbinete.followone2.api.models.Session
+import com.example.gabbinete.followone2.database.entities.LocalCircuit
+import com.example.gabbinete.followone2.database.entities.LocalConstructor
+import com.example.gabbinete.followone2.database.entities.LocalDriver
 import com.example.gabbinete.followone2.domain.Constructor
 import com.example.gabbinete.followone2.domain.Driver
 import com.google.gson.Gson
@@ -85,6 +88,54 @@ class Converters(
     fun toQualifyingResultsFromJson(json: String): List<QualifyingResult> {
         return jsonParser.fromJson(json, object : TypeToken<ArrayList<QualifyingResult>>() {}.type)
             ?: emptyList()
+    }
+
+    // LocalDriver =================================================================================
+    @TypeConverter
+    fun fromLocalDriverToJson(driver: LocalDriver): String {
+        return Gson().toJson(driver)
+    }
+
+    @TypeConverter
+    fun toLocalDriverFromJson(json: String): LocalDriver {
+        return Gson().fromJson(json, LocalDriver::class.java)
+    }
+
+    // LocalConstructor ============================================================================
+    @TypeConverter
+    fun fromLocalConstructorToJson(constructor: LocalConstructor): String {
+        return Gson().toJson(constructor)
+    }
+
+    @TypeConverter
+    fun toLocalConstructorFromJson(json: String): LocalConstructor {
+        return Gson().fromJson(json, LocalConstructor::class.java)
+    }
+
+    // LocalConstructor List =======================================================================
+    @TypeConverter
+    fun fromLocalConstructorListToJson(constructors: List<LocalConstructor>): String {
+        return jsonParser.toJson(
+            constructors,
+            object : TypeToken<ArrayList<LocalConstructor>>() {}.type
+        ) ?: "[]"
+    }
+
+    @TypeConverter
+    fun toLocalConstructorListFromJson(json: String): List<LocalConstructor> {
+        return jsonParser.fromJson(json, object : TypeToken<ArrayList<LocalConstructor>>() {}.type)
+            ?: emptyList()
+    }
+
+    // Circuit =====================================================================================
+    @TypeConverter
+    fun fromCircuitToJson(circuit: LocalCircuit): String {
+        return Gson().toJson(circuit)
+    }
+
+    @TypeConverter
+    fun toCircuitFromJson(json: String): LocalCircuit {
+        return Gson().fromJson(json, LocalCircuit::class.java)
     }
 }
 
