@@ -1,5 +1,6 @@
 package com.example.gabbinete.followone2.api
 
+import android.util.Log
 import com.example.gabbinete.followone2.database.entities.*
 import com.example.gabbinete.followone2.repo.RemoteDataSource
 import com.example.gabbinete.followone2.util.toLocalConstructorStandings
@@ -9,6 +10,8 @@ import com.example.gabbinete.followone2.util.toLocalGrandPrixList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
+private const val TAG = "ApiDataSource"
 
 
 class ApiDataSource @Inject constructor(private val apiService: ApiService) : RemoteDataSource {
@@ -32,6 +35,7 @@ class ApiDataSource @Inject constructor(private val apiService: ApiService) : Re
     }
 
     override suspend fun getLastRace(): LocalLastRace = withContext(Dispatchers.IO) {
+        Log.d(TAG, "getLastRace calls API.")
         apiService.getLastRace().mrData.raceTable.networkGrandPrixes[0].toLocalLastRace()
     }
 

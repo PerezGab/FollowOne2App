@@ -11,6 +11,7 @@ import com.example.gabbinete.followone2.repo.LocalDataSource
 import com.example.gabbinete.followone2.repo.RemoteDataSource
 import com.example.gabbinete.followone2.repo.Repository
 import com.example.gabbinete.followone2.repo.RepositoryImpl
+import com.example.gabbinete.followone2.util.Constants
 import com.example.gabbinete.followone2.util.Converters
 import com.example.gabbinete.followone2.util.GsonParser
 import com.google.gson.Gson
@@ -24,8 +25,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-private const val API_URL = "https://ergast.com/api/f1/"
-
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -38,7 +37,7 @@ object AppModule {
         .client(okHttpClient)
 //    .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(API_URL)
+        .baseUrl(Constants.API_URL)
         .build()
 
     @Provides

@@ -23,23 +23,17 @@ class HomeFragment : Fragment() {
 
 
         lifecycleScope.launchWhenStarted {
-            viewModel.lastGP.collect { binding.lastGpName.text = it?.raceName }
-        }
+            viewModel.state.collect {
+                binding.lastGpName.text = it.lastGP?.raceName
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.nextGP.collect {
-                it?.let {
-                    binding.nextGpName.text = it.raceName
-                    binding.nextGpDate.text = it.date
-                    binding.nextGpCircuitName.text = it.circuit?.circuitName
-                    binding.nextRaceRound.text = if (it.round == null) "" else "Round " + it.round
+                it.nextGP?.let { nextGP ->
+                    binding.nextGpName.text = nextGP.raceName
+                    binding.nextGpDate.text = nextGP.date
+                    binding.nextGpCircuitName.text = nextGP.circuit?.circuitName
+                    binding.nextRaceRound.text = "Round " + nextGP.round
                 }
             }
         }
-
-//        val localTime = LocalDateTime.now()
-//        binding.textView.text = localTime.toString()
-
 
         return binding.root
     }

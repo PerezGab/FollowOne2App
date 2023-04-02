@@ -13,6 +13,7 @@
     <string name="last_race_text">Last Race Results:</string>
     <string name="calendar">Calendar</string>
     <string name="news">News</string>
+    <string name="error_http">Could not reach the server.</string>
 
 
 </resources>

@@ -8,7 +8,7 @@ import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
 
 class GrandPrix(
     val season: String,
-    val round: String?,
+    val round: String,
     val url: String?,
     val raceName: String,
     val circuit: Circuit?,
@@ -26,7 +26,7 @@ class GrandPrix(
         fun postSeason(): GrandPrix {
             return GrandPrix(
                 "",
-                null,
+                "",
                 null,
                 "Season has finished",
                 null,

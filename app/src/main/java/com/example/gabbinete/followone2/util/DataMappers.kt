@@ -40,6 +40,7 @@ fun List<NetworkConstructorStanding>.toLocalConstructorStandings(): List<LocalCo
 }
 
 fun List<NetworkGrandPrix>.toLocalGrandPrixList(): List<LocalGrandPrix> {
+    this.forEach { println(it) }
     return map { it.toLocalGrandPrix() }
 }
 
