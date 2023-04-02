@@ -35,8 +35,8 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launchWhenStarted {
-            viewModel.listGp.collect {
-                it?.let { setupCalendar(it) }
+            viewModel.state.collect { state ->
+                state.calendar?.let { setupCalendar(it) }
             }
         }
 

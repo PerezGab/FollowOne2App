@@ -36,8 +36,8 @@ class DriverStandingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            viewModel.driverStandings.collect {
-                it?.let {
+            viewModel.state.collect { state ->
+                state.driverStandings?.let {
                     setupStandingViews(it)
                 }
             }

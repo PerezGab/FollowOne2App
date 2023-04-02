@@ -10,7 +10,7 @@ import com.example.gabbinete.followone2.domain.GrandPrix
 @Entity(tableName = "grand_prix")
 data class LocalGrandPrix(
     val season: String,
-    val round: String?,
+    val round: String,
     val url: String?,
     val raceName: String,
     val circuit: LocalCircuit?,

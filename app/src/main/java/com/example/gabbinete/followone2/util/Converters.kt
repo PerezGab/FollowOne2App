@@ -55,18 +55,18 @@ class Converters(
 
     // Session =====================================================================================
     @TypeConverter
-    fun fromSessionToJson(session: Session): String {
-        return Gson().toJson(session)
+    fun fromSessionToJson(session: Session?): String {
+        return if (session !== null) Gson().toJson(session) else ""
     }
 
     @TypeConverter
-    fun toSessionFromJson(json: String): Session {
+    fun toSessionFromJson(json: String): Session? {
         return Gson().fromJson(json, Session::class.java)
     }
 
     // RaceResults List ============================================================================
     @TypeConverter
-    fun fromRaceResultsToJson(results: List<RaceResult>): String {
+    fun fromRaceResultsToJson(results: List<RaceResult>?): String {
         return jsonParser.toJson(results, object : TypeToken<ArrayList<RaceResult>>() {}.type)
             ?: "[]"
     }
@@ -79,7 +79,7 @@ class Converters(
 
     // QualifyingResults List ======================================================================
     @TypeConverter
-    fun fromQualifyingResultsToJson(results: List<QualifyingResult>): String {
+    fun fromQualifyingResultsToJson(results: List<QualifyingResult>?): String {
         return jsonParser.toJson(results, object : TypeToken<ArrayList<QualifyingResult>>() {}.type)
             ?: "[]"
     }
@@ -129,7 +129,7 @@ class Converters(
 
     // Circuit =====================================================================================
     @TypeConverter
-    fun fromCircuitToJson(circuit: LocalCircuit): String {
+    fun fromCircuitToJson(circuit: LocalCircuit?): String {
         return Gson().toJson(circuit)
     }
 

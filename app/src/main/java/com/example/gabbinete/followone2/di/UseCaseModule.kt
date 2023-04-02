@@ -16,16 +16,18 @@ interface UseCaseModule {
 
     @Binds
     @Named("getSeasonRaces")
-    fun getSeasonRacesUseCaseBinder(getSeasonRacesUseCase: GetSeasonRacesUseCase): UseCase<GrandPrix>
+    fun getSeasonRacesUseCaseBinder(getSeasonRacesUseCase: GetSeasonRacesUseCase): GetTablesUseCase<GrandPrix>
 
     @Binds
     @Named("getLastRace")
-    fun getLastRaceUseCaseBinder(getLastRaceUseCase: GetLastRaceUseCase): UseCase<GrandPrix>
+    fun getLastRaceUseCaseBinder(getLastRaceUseCase: GetLastRaceUseCase): GetTablesUseCase<GrandPrix>
 
     @Binds
-    fun getDriverStandingsUseCaseBinder(getDriverStandingsUseCase: GetDriverStandingsUseCase): UseCase<DriverStandings>
+    fun getDriverStandingsUseCaseBinder(getDriverStandingsUseCase: GetDriverStandingsUseCase): GetTablesUseCase<DriverStandings>
 
     @Binds
-    fun getConstructorStandingsUseCaseBinder(getConstructorStandingsUseCase: GetConstructorStandingsUseCase): UseCase<ConstructorStandings>
+    fun getConstructorStandingsUseCaseBinder(getConstructorStandingsUseCase: GetConstructorStandingsUseCase): GetTablesUseCase<ConstructorStandings>
 
+    @Binds
+    fun isDataStoredUseCaseBinder(isDataStoredUseCase: IsDataStoredUseCase): IsConditionUseCase<Boolean>
 }
