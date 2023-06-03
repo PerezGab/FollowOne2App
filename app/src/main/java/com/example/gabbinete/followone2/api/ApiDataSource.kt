@@ -1,7 +1,12 @@
 package com.example.gabbinete.followone2.api
 
 import android.util.Log
-import com.example.gabbinete.followone2.database.entities.*
+import com.example.gabbinete.followone2.api.models.NetworkRaceResult
+import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
+import com.example.gabbinete.followone2.database.entities.LocalDriver
+import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
+import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
+import com.example.gabbinete.followone2.database.entities.LocalLastRace
 import com.example.gabbinete.followone2.repo.RemoteDataSource
 import com.example.gabbinete.followone2.util.toLocalConstructorStandings
 import com.example.gabbinete.followone2.util.toLocalDriver
@@ -30,9 +35,10 @@ class ApiDataSource @Inject constructor(private val apiService: ApiService) : Re
             apiService.getCurrentSeasonConstructorStandings().mRDataDriver.standingsTable.standingsLists[0].constructorStandings.toLocalConstructorStandings()
         }
 
-    override suspend fun getCurrentSeasonRaces(): List<LocalGrandPrix> = withContext(Dispatchers.IO) {
-        apiService.getCurrentSeasonRaces().mrData.raceTable.networkGrandPrixes.toLocalGrandPrixList()
-    }
+    override suspend fun getCurrentSeasonRaces(): List<LocalGrandPrix> =
+        withContext(Dispatchers.IO) {
+            apiService.getCurrentSeasonRaces().mrData.raceTable.networkGrandPrixes.toLocalGrandPrixList()
+        }
 
     override suspend fun getLastRace(): LocalLastRace = withContext(Dispatchers.IO) {
         Log.d(TAG, "getLastRace calls API.")
@@ -43,4 +49,14 @@ class ApiDataSource @Inject constructor(private val apiService: ApiService) : Re
         withContext(Dispatchers.IO) {
             apiService.getRace(round).mrData.raceTable.networkGrandPrixes[0].toLocalGrandPrix()
         }
+
+    override suspend fun getRaceResults(round: String): List<NetworkRaceResult>? =
+        withContext(Dispatchers.IO) {
+            try {
+                apiService.getRaceResults(round).mrData.raceTable.networkGrandPrixes[0].raceResults
+            } catch (e: Exception) {
+                null
+            }
+        }
+
 }

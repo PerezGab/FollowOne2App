@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
     <fragment
@@ -10,9 +11,25 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.gabbinete.followone2.ui.calendar.CalendarFragment"
-        android:label="Calendar" />
+        android:label="Calendar" >
+        <action
+            android:id="@+id/action_calendarFragment_to_grandPrixProfileFragment"
+            app:destination="@id/grandPrixProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/standingsFragment"
         android:name="com.example.gabbinete.followone2.ui.standings.StandingsFragment"
         android:label="Standings"/>
+    <fragment
+        android:id="@+id/grandPrixProfileFragment"
+        android:name="com.example.gabbinete.followone2.ui.grand_prix_profile.GrandPrixProfileFragment"
+        android:label="{grandPrixTitle}"
+        tools:layout="@layout/fragment_grand_prix_profile" >
+        <argument
+            android:name="grandPrixRound"
+            app:argType="string" />
+        <argument
+            android:name="grandPrixTitle"
+            app:argType="string" />
+    </fragment>
 </navigation>

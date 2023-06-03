@@ -18,7 +18,7 @@ class CalendarFragmentViewModel @Inject constructor(
     @Named("getSeasonRaces") private val getSeasonRacesUseCase: GetTablesUseCase<GrandPrix>
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(CalendarFragmentState(null, true))
+    private val _state = MutableStateFlow(CalendarFragmentState(null, true, null))
     val state = _state.asStateFlow()
 
     init {
@@ -47,6 +47,14 @@ class CalendarFragmentViewModel @Inject constructor(
 
             }
         }
+    }
+
+    fun onGrandPrixClick(gp: GrandPrix) {
+        _state.update { it.copy(navigateToGrandPrixProfile = gp) }
+    }
+
+    fun onGrandPrixNavigated() {
+        _state.update { it.copy(navigateToGrandPrixProfile = null) }
     }
 }
 

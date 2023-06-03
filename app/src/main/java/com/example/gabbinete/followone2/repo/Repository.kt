@@ -13,7 +13,8 @@ interface Repository {
     fun getCurrentSeasonConstructorStandings(updateData: Boolean): Flow<Response<List<ConstructorStandings>>>
     fun getCurrentSeasonRaces(updateData: Boolean): Flow<Response<List<GrandPrix>>>
     fun getLastRace(updateData: Boolean): Flow<Response<List<GrandPrix>>>
-    fun getRace(round: String): Flow<Response<GrandPrix>>
+    fun getRaceByRound(round: String): Flow<Response<GrandPrix>>
+    suspend fun updateRaceResultsByRound(round: String)
     suspend fun updateSeasonRaces()
     suspend fun updateDriverStandings()
     suspend fun updateConstructorStandings()

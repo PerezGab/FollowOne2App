@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.grand_prix_profile.circuit.GrandPrixCircuitFragment">
+
+    <!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/grand_prix_flag"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/grand_prix_country_flag_description"
+        android:padding="4dp"
+        app:layout_constraintEnd_toStartOf="@id/grand_prix_name_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/flag_brn" />
+
+    <TextView
+        android:id="@id/grand_prix_name_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:fontFamily="@font/prompt"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/grand_prix_flag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/grand_prix_flag"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/grand_prix_name_sample" />
+
+    <ImageView
+        android:id="@+id/grand_prix_circuit_image"
+        android:layout_width="wrap_content"
+        android:layout_height="235dp"
+        android:contentDescription="@string/grand_prix_circuit_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grand_prix_name_text"
+        tools:src="@drawable/circuit_bahrain" />
+
+    <TextView
+        android:id="@+id/grand_prix_more_info_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:fontFamily="@font/prompt"
+        android:padding="4dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="More info >" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,10 +2,11 @@ package com.example.gabbinete.followone2.api.models
 
 import android.os.Parcelable
 import com.example.gabbinete.followone2.database.entities.LocalDriver
+import com.example.gabbinete.followone2.domain.Driver
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class NetworkDriver (
+data class NetworkDriver(
     val driverId: String,
     val permanentNumber: String,
     val code: String,
@@ -25,6 +26,12 @@ data class NetworkDriver (
             familyName = familyName,
             dateOfBirth = dateOfBirth,
             nationality = nationality
+        )
+    }
+
+    fun toDomainDriver(): Driver {
+        return Driver(
+            driverId, permanentNumber, code, url, givenName, familyName, dateOfBirth, nationality
         )
     }
 }

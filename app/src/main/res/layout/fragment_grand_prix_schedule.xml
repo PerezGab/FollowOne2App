@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.grand_prix_profile.schedule.GrandPrixScheduleFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/grand_prix_title"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:fontFamily="@font/prompt"
+        android:padding="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/grand_prix_name_sample" />
+
+    <TextView
+        android:id="@+id/grand_prix_round_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:fontFamily="@font/prompt"
+        android:padding="4dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/grand_prix_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Round 1" />
+
+    <TextView
+        android:id="@+id/race_weekend_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:fontFamily="@font/prompt"
+        android:padding="4dp"
+        android:text="@string/race_weekend"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grand_prix_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintTop_toBottomOf="@id/race_weekend_text" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

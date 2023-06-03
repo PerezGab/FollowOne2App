@@ -60,11 +60,12 @@ class MainActivity : AppCompatActivity() {
             repo.updateLastRace()
             repo.updateDriverStandings()
             repo.updateConstructorStandings()
-            repo.dataStoredCompleted()
         } catch (e: Exception) {
 //            Snackbar.make(binding.root, "Connection Error", Snackbar.LENGTH_SHORT).show()
             Toast.makeText(this, "Connection Error", Toast.LENGTH_SHORT).show()
             Log.d(TAG, "Error is ${e.message}")
         }
+        repo.dataStoredCompleted()
+        Log.d(TAG, "setupApp() has finished.")
     }
 }

@@ -1,16 +1,17 @@
 package com.example.gabbinete.followone2.ui.standings
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.gabbinete.followone2.databinding.FragmentStandingsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class StandingsFragment : Fragment() {
 
-    private lateinit var binding: FragmentStandingsBinding
+    private var _binding: FragmentStandingsBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: StandingsTabAdapter
 
 
@@ -19,7 +20,7 @@ class StandingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentStandingsBinding.inflate(inflater, container, false)
+        _binding = FragmentStandingsBinding.inflate(inflater, container, false)
         adapter = StandingsTabAdapter(this)
 
         return binding.root
@@ -37,5 +38,10 @@ class StandingsFragment : Fragment() {
                 }
             }.attach()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

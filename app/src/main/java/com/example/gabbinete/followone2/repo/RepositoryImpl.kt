@@ -22,12 +22,6 @@ class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : Repository {
-//    override suspend fun getCurrentDrivers(updateData: Boolean): List<LocalDriver> {
-//        return if (!updateData) {
-//            localDataSource.getDrivers()
-//        }
-//        remoteDataSource.getCurrentDrivers()
-//    }
 
     private val _isDataStored = MutableStateFlow(false)
     override val isDataStored = _isDataStored.asStateFlow()
@@ -49,14 +43,13 @@ class RepositoryImpl @Inject constructor(
     override fun getCurrentSeasonDriverStandings(updateData: Boolean): Flow<Response<List<DriverStandings>>> =
         flow {
             emit(Response.Loading(isLoading = true))
-            if (!updateData) {
+            if (updateData) {
                 emit(
                     Response.Success(
                         localDataSource.getDriversStandings().toDomainDriverStandings()
                     )
                 )
-            }
-            try {
+            } else try {
                 updateDriverStandings()
                 emit(
                     Response.Success(
@@ -82,15 +75,15 @@ class RepositoryImpl @Inject constructor(
 
     override fun getCurrentSeasonConstructorStandings(updateData: Boolean): Flow<Response<List<ConstructorStandings>>> =
         flow {
+            Log.d(TAG, "updateData is $updateData")
             emit(Response.Loading(isLoading = true))
-            if (!updateData) {
+            if (updateData) {
                 emit(
                     Response.Success(
                         localDataSource.getConstructorStandings().toDomainConstructorStandings()
                     )
                 )
-            }
-            try {
+            } else try {
                 updateConstructorStandings()
                 emit(
                     Response.Success(
@@ -116,11 +109,13 @@ class RepositoryImpl @Inject constructor(
 
     override fun getCurrentSeasonRaces(updateData: Boolean): Flow<Response<List<GrandPrix>>> =
         flow {
+            Log.d(TAG, "updateData is $updateData")
             emit(Response.Loading(isLoading = true))
-            if (!updateData) {
+            if (updateData) {
+                Log.d(TAG, "if condition is true")
                 emit(Response.Success(localDataSource.getSeasonRaces().toDomainGrandPrix()))
-            }
-            try {
+            } else try {
+                Log.d(TAG, "if condition is false")
                 updateSeasonRaces()
                 emit(
                     Response.Success(
@@ -144,15 +139,16 @@ class RepositoryImpl @Inject constructor(
             }
         }
 
-
     override fun getLastRace(updateData: Boolean): Flow<Response<List<GrandPrix>>> = flow {
         Log.d(TAG, "getLastRace is called by the Repo")
+        Log.d(TAG, "updateData is $updateData")
         emit(Response.Loading(isLoading = true))
         val cachedLastRace = localDataSource.getLastRace()[0]
-        if (!updateData) {
+        if (updateData) {
+            Log.d(TAG, "if condition is true")
             emit(Response.Success(listOf(localDataSource.getSeasonRaces()[cachedLastRace.round.toInt() - 1].toDomainGrandPrix())))
-        }
-        try {
+        } else try {
+            Log.d(TAG, "if condition is false")
             Log.d(TAG, "getLastRace try block. [updateLastRace() is called]")
             updateLastRace()
             val updatedRound = localDataSource.getLastRace()[0].round.toInt() - 1
@@ -174,15 +170,14 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-
-    override fun getRace(round: String): Flow<Response<GrandPrix>> = flow {
+    override fun getRaceByRound(round: String): Flow<Response<GrandPrix>> = flow {
         emit(Response.Loading(isLoading = true))
         val localSeasonRaces = localDataSource.getSeasonRaces()
         if (localSeasonRaces.isNotEmpty()) {
             emit(Response.Success(localDataSource.getSeasonRaces()[round.toInt() - 1].toDomainGrandPrix()))
         }
         try {
-            updateSeasonRaces()
+//            updateSeasonRaces()
             emit(Response.Success(localDataSource.getSeasonRaces()[round.toInt() - 1].toDomainGrandPrix()))
         } catch (e: HttpException) {
             emit(
@@ -207,7 +202,6 @@ class RepositoryImpl @Inject constructor(
         localDataSource.clearSeasonRaces()
         localDataSource.upsertSeasonRaces(seasonRaces)
         Log.d(TAG, "upsertSeasonRaces is inserting $seasonRaces by the Repo")
-
     }
 
     override suspend fun updateDriverStandings() {
@@ -226,5 +220,19 @@ class RepositoryImpl @Inject constructor(
         Log.d(TAG, "updateLastRace is called by the Repo")
         val lastRace = remoteDataSource.getLastRace()
         localDataSource.upsertLastRace(lastRace)
+    }
+
+    override suspend fun updateRaceResultsByRound(round: String) {
+        Log.d(TAG, "updateRaceResultsByRound is called by the Repo. Round updated is $round")
+        try {
+            val raceResults = remoteDataSource.getRaceResults(round)
+            if (raceResults != null) {
+                localDataSource.updateRaceResultWithRound(round, raceResults)
+            }
+        } catch (e: IOException) {
+            Log.d(TAG, "Can not access to internet. Error is ${e.message}")
+        } catch (e: HttpException) {
+            Log.d(TAG, "Could not reach the server. Error is ${e.message}")
+        }
     }
 }

@@ -30,4 +30,7 @@ interface UseCaseModule {
 
     @Binds
     fun isDataStoredUseCaseBinder(isDataStoredUseCase: IsDataStoredUseCase): IsConditionUseCase<Boolean>
+
+    @Binds
+    fun getRaceResultsByRoundUseCaseBinder(getRaceByRoundUseCase: GetRaceByRoundUseCase): GetByIdUseCase<GrandPrix>
 }

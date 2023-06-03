@@ -34,6 +34,7 @@ class HomeFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             isDataStoredUseCase().collect {
                 if (it) {
+                    Log.d(TAG, "isDataStoredUseCase is $it")
                     setupLastRace()
                     setupNextRace()
                 }
@@ -46,22 +47,29 @@ class HomeFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             getLastRaceUseCase(false).collect { result ->
                 when (result) {
-                    is Response.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
+                    is Response.Loading -> {
+                        Log.d(TAG, "SetupLastRace Result is Response.Loading")
+                        _state.update { it.copy(isLoading = result.isLoading) }
+                    }
 
-                    is Response.Success ->
+                    is Response.Success -> {
+                        Log.d(TAG, "SetupLastRace Result is Response.Success")
                         result.data?.let { lastGP ->
                             _state.update { state ->
                                 state.copy(lastGP = lastGP[0], isLoading = result.isLoading)
                             }
                         }
+                    }
 
-                    is Response.Error ->
+                    is Response.Error -> {
+                        Log.d(TAG, "SetupLastRace Result is Response.Loading")
                         result.data?.let { lastGP ->
                             _state.update { state ->
                                 state.copy(lastGP = lastGP[0], isLoading = result.isLoading)
                             }
                         }
 //                        result.message TODO
+                    }
                 }
             }
         }
@@ -77,9 +85,13 @@ class HomeFragmentViewModel @Inject constructor(
                     getSeasonRacesUseCase(false).collect { seasonRaces ->
                         val totalRounds = seasonRaces.data?.count()
                         when (result) {
-                            is Response.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
+                            is Response.Loading -> {
+                                Log.d(TAG, "SetupNextRace Result is Response.Loading")
+                                _state.update { it.copy(isLoading = result.isLoading) }
+                            }
 
                             is Response.Success -> {
+                                Log.d(TAG, "SetupNextRace Result is Response.Success")
                                 if (totalRounds != null && nextGpRound >= totalRounds) {
                                     _state.update {
                                         it.copy(
@@ -90,7 +102,7 @@ class HomeFragmentViewModel @Inject constructor(
                                 } else {
                                     _state.update {
                                         it.copy(
-                                            nextGP = seasonRaces.data?.get(nextGpRound-1),
+                                            nextGP = seasonRaces.data?.get(nextGpRound - 1),
                                             isLoading = result.isLoading
                                         )
                                     }
@@ -98,6 +110,7 @@ class HomeFragmentViewModel @Inject constructor(
                             }
 
                             is Response.Error -> {
+                                Log.d(TAG, "SetupNextRace Result is Response.Error")
                                 if (totalRounds != null && nextGpRound >= totalRounds) {
                                     _state.update {
                                         it.copy(
@@ -108,7 +121,7 @@ class HomeFragmentViewModel @Inject constructor(
                                 } else {
                                     _state.update {
                                         it.copy(
-                                            nextGP = seasonRaces.data?.get(nextGpRound-1),
+                                            nextGP = seasonRaces.data?.get(nextGpRound - 1),
                                             isLoading = result.isLoading
                                         )
                                     }

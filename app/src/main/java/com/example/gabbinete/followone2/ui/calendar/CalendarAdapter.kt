@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gabbinete.followone2.databinding.GrandprixListItemBinding
 import com.example.gabbinete.followone2.domain.GrandPrix
 
-const val TAG = "CalendarAdapter"
+private const val TAG = "CalendarAdapter"
 
-class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>() {
+class CalendarAdapter(private val clickListener: GrandPrixListener) : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>() {
 
     private val gpList = mutableListOf<GrandPrix>()
 
@@ -21,18 +21,20 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder is called")
-        holder.bind(gpList[position])
+        holder.bind(gpList[position], clickListener)
     }
 
     override fun getItemCount(): Int = gpList.size
 
     class CalendarViewHolder private constructor(private val binding: GrandprixListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: GrandPrix) {
+        fun bind(item: GrandPrix, clickListener: GrandPrixListener) {
             Log.d(TAG, "bind() is called")
             binding.apply {
+                grandPrix = item
+                this.clickListener = clickListener
                 dateText.text = item.date
-                grandPrixNameText.text = item.raceName
+                grandPrixNameText.text = item.formalTitleName
                 circuitName.text = item.circuit?.circuitName
                 "Round ${item.round}".also { roundText.text = it }
             }
@@ -51,10 +53,15 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>
 
     @SuppressLint("NotifyDataSetChanged")
     fun setupAdapter(list: List<GrandPrix>) {
+        gpList.clear()
         Log.d(TAG, "setupAdapter is called")
         gpList.addAll(list)
         Log.d(TAG, "The list size is ${list.size}")
 
         notifyDataSetChanged()
     }
+}
+
+class GrandPrixListener(val clickListener: (item: GrandPrix) -> Unit) {
+    fun onClick(gp: GrandPrix) = clickListener(gp)
 }
