@@ -1,6 +1,11 @@
 package com.example.gabbinete.followone2.repo
 
-import com.example.gabbinete.followone2.database.entities.*
+import com.example.gabbinete.followone2.api.models.NetworkRaceResult
+import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
+import com.example.gabbinete.followone2.database.entities.LocalDriver
+import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
+import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
+import com.example.gabbinete.followone2.database.entities.LocalLastRace
 
 interface RemoteDataSource {
     suspend fun getCurrentDrivers(): List<LocalDriver>
@@ -9,4 +14,5 @@ interface RemoteDataSource {
     suspend fun getCurrentSeasonRaces(): List<LocalGrandPrix>
     suspend fun getLastRace(): LocalLastRace
     suspend fun getRace(round: String): LocalGrandPrix
+    suspend fun getRaceResults(round: String): List<NetworkRaceResult>?
 }

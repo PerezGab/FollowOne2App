@@ -15,14 +15,14 @@ data class NetworkGrandPrix(
     @SerializedName("Circuit") val circuit: NetworkCircuit,
     val date: String,
     val time: String,
-    @SerializedName("Results") val raceResults: List<RaceResult>,
+    @SerializedName("Results") val raceResults: List<NetworkRaceResult>,
     @SerializedName("QualifyingResults") val qualifyingResults: List<QualifyingResult>,
     @SerializedName("SprintResults") val sprintResults: List<SprintResult>,
-    @SerializedName("FirstPractice") val firstPractice: Session,
-    @SerializedName("SecondPractice") val secondPractice: Session,
-    @SerializedName("ThirdPractice") val thirdPractice: Session,
-    @SerializedName("Qualifying") val qualifying: Session,
-    @SerializedName("Sprint") val sprint: Session
+    @SerializedName("FirstPractice") val firstPractice: NetworkSession,
+    @SerializedName("SecondPractice") val secondPractice: NetworkSession,
+    @SerializedName("ThirdPractice") val thirdPractice: NetworkSession,
+    @SerializedName("Qualifying") val qualifying: NetworkSession,
+    @SerializedName("Sprint") val sprint: NetworkSession
 ) : Parcelable {
     fun toLocalGrandPrix(): LocalGrandPrix {
         return LocalGrandPrix(

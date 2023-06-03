@@ -1,7 +1,11 @@
 package com.example.gabbinete.followone2.domain
 
+import android.os.Parcelable
 import com.example.gabbinete.followone2.R
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Driver(
     val driverId: String,
     val permanentNumber: String,
@@ -11,7 +15,8 @@ data class Driver(
     val familyName: String,
     val dateOfBirth: String,
     val nationality: String
-) {
+):Parcelable {
+    @IgnoredOnParcel
     val mapFlag: Int? =
         when (nationality) {
             "Australian" -> R.drawable.flag_aus
@@ -28,6 +33,7 @@ data class Driver(
             "Monegasque" -> R.drawable.flag_mon
             "Spanish" -> R.drawable.flag_spa
             "Thai" -> R.drawable.flag_tha
+            "American" -> R.drawable.flag_usa
             else -> null
         }
 }

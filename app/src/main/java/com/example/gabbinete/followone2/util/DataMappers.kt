@@ -1,11 +1,21 @@
 package com.example.gabbinete.followone2.util
 
-import com.example.gabbinete.followone2.api.models.*
-import com.example.gabbinete.followone2.database.entities.*
+import com.example.gabbinete.followone2.api.models.NetworkConstructor
+import com.example.gabbinete.followone2.api.models.NetworkConstructorStanding
+import com.example.gabbinete.followone2.api.models.NetworkDriver
+import com.example.gabbinete.followone2.api.models.NetworkDriverStanding
+import com.example.gabbinete.followone2.api.models.NetworkGrandPrix
+import com.example.gabbinete.followone2.api.models.NetworkRaceResult
+import com.example.gabbinete.followone2.database.entities.LocalConstructor
+import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
+import com.example.gabbinete.followone2.database.entities.LocalDriver
+import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
+import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
 import com.example.gabbinete.followone2.domain.Constructor
 import com.example.gabbinete.followone2.domain.ConstructorStandings
 import com.example.gabbinete.followone2.domain.DriverStandings
 import com.example.gabbinete.followone2.domain.GrandPrix
+import com.example.gabbinete.followone2.domain.RaceResults
 
 fun List<LocalDriverStandings>.toDomainDriverStandings(): List<DriverStandings> {
     return map { it.toDomainDriverStandings() }
@@ -40,27 +50,10 @@ fun List<NetworkConstructorStanding>.toLocalConstructorStandings(): List<LocalCo
 }
 
 fun List<NetworkGrandPrix>.toLocalGrandPrixList(): List<LocalGrandPrix> {
-    this.forEach { println(it) }
+//    this.forEach { println(it) }
     return map { it.toLocalGrandPrix() }
 }
 
-//fun List<DriverStandingList>.toDomainDriverStandingList(): List<SeasonStandings> {
-//    return map {
-//        SeasonStandings(
-//            season = it.season,
-//            round = it.round,
-//            standings = it.driverStandings.toDomainDriverStandings()
-//        )
-//    }
-//}
-
-//fun List<ConstructorStandingList>.toDomainConstructorStandingList(): List<SeasonStandings> {
-//    return map {
-//        SeasonStandings(
-//            season = it.season,
-//            round = it.round,
-//            standings = it.constructorStandings.toDomainConstructorStandings()
-//        )
-//    }
-//}
-
+fun List<NetworkRaceResult>.toDomainRaceResultsList(): List<RaceResults> {
+    return map { it.toDomainRaceResult() }
+}

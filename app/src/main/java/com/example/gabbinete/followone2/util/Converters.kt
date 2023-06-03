@@ -2,9 +2,9 @@ package com.example.gabbinete.followone2.util
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
+import com.example.gabbinete.followone2.api.models.NetworkRaceResult
+import com.example.gabbinete.followone2.api.models.NetworkSession
 import com.example.gabbinete.followone2.api.models.QualifyingResult
-import com.example.gabbinete.followone2.api.models.RaceResult
-import com.example.gabbinete.followone2.api.models.Session
 import com.example.gabbinete.followone2.database.entities.LocalCircuit
 import com.example.gabbinete.followone2.database.entities.LocalConstructor
 import com.example.gabbinete.followone2.database.entities.LocalDriver
@@ -55,25 +55,27 @@ class Converters(
 
     // Session =====================================================================================
     @TypeConverter
-    fun fromSessionToJson(session: Session?): String {
+    fun fromSessionToJson(session: NetworkSession?): String {
         return if (session !== null) Gson().toJson(session) else ""
     }
 
     @TypeConverter
-    fun toSessionFromJson(json: String): Session? {
-        return Gson().fromJson(json, Session::class.java)
+    fun toSessionFromJson(json: String): NetworkSession? {
+        return Gson().fromJson(json, NetworkSession::class.java)
     }
 
     // RaceResults List ============================================================================
     @TypeConverter
-    fun fromRaceResultsToJson(results: List<RaceResult>?): String {
-        return jsonParser.toJson(results, object : TypeToken<ArrayList<RaceResult>>() {}.type)
+    fun fromRaceResultsToJson(results: List<NetworkRaceResult>?): String {
+//        Log.d("RoomTypeConverter", "fromRaceResultsToJson is called with $results")
+        return jsonParser.toJson(results, object : TypeToken<ArrayList<NetworkRaceResult>>() {}.type)
             ?: "[]"
     }
 
     @TypeConverter
-    fun toRaceResultsFromJson(json: String): List<RaceResult> {
-        return jsonParser.fromJson(json, object : TypeToken<ArrayList<RaceResult>>() {}.type)
+    fun toRaceResultsFromJson(json: String): List<NetworkRaceResult> {
+//        Log.d("RoomTypeConverter", "toRaceResultsFromJson is called with $json")
+        return jsonParser.fromJson(json, object : TypeToken<ArrayList<NetworkRaceResult>>() {}.type)
             ?: emptyList()
     }
 

@@ -14,6 +14,12 @@
     <string name="calendar">Calendar</string>
     <string name="news">News</string>
     <string name="error_http">Could not reach the server.</string>
+    <string name="grand_prix_name_sample">Gulf Air Bahrain Grand Prix</string>
+    <string name="grand_prix_circuit_sample">Bahrain International Circuit</string>
+    <string name="grand_prix_date_sample">5–3–2023</string>
+    <string name="grand_prix_country_flag_description">Grand Prix country flag</string>
+    <string name="grand_prix_circuit_description">Grand Prix Circuit</string>
+    <string name="race_weekend">Race Weekend</string>
 
 
 </resources>

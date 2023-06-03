@@ -43,6 +43,7 @@ class ConstructorStandingsAdapter :
 
     @SuppressLint("NotifyDataSetChanged")
     fun addStandings(standingsList: List<Standings>) {
+        list.clear()
         list.addAll(standingsList)
         notifyDataSetChanged()
     }

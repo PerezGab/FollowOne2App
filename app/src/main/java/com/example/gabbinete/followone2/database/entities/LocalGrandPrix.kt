@@ -2,10 +2,11 @@ package com.example.gabbinete.followone2.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.gabbinete.followone2.api.models.NetworkRaceResult
+import com.example.gabbinete.followone2.api.models.NetworkSession
 import com.example.gabbinete.followone2.api.models.QualifyingResult
-import com.example.gabbinete.followone2.api.models.RaceResult
-import com.example.gabbinete.followone2.api.models.Session
 import com.example.gabbinete.followone2.domain.GrandPrix
+import com.example.gabbinete.followone2.util.toDomainRaceResultsList
 
 @Entity(tableName = "grand_prix")
 data class LocalGrandPrix(
@@ -16,13 +17,13 @@ data class LocalGrandPrix(
     val circuit: LocalCircuit?,
     val date: String?,
     val time: String?,
-    val raceResults: List<RaceResult>?,
+    val raceResults: List<NetworkRaceResult>?,
     val qualifyingResults: List<QualifyingResult>?,
-    val firstPractice: Session?,
-    val secondPractice: Session?,
-    val thirdPractice: Session?,
-    val qualifying: Session?,
-    val sprint: Session?,
+    val firstPractice: NetworkSession?,
+    val secondPractice: NetworkSession?,
+    val thirdPractice: NetworkSession?,
+    val qualifying: NetworkSession?,
+    val sprint: NetworkSession?,
     @PrimaryKey(autoGenerate = true) val id: Int? = null
 ) {
     fun toDomainGrandPrix(): GrandPrix {
@@ -34,13 +35,13 @@ data class LocalGrandPrix(
             circuit?.toDomainCircuit(),
             date,
             time,
-            raceResults,
+            raceResults?.toDomainRaceResultsList(),
             qualifyingResults,
-            firstPractice,
-            secondPractice,
-            thirdPractice,
-            qualifying,
-            sprint
+            firstPractice?.toDomainFp1(),
+            secondPractice?.toDomainFp2(),
+            thirdPractice?.toDomainFp3(),
+            qualifying?.toDomainQualy(),
+            sprint?.toDomainSprint()
         )
     }
 }

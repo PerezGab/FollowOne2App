@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gabbinete.followone2.databinding.FragmentConstructorStandingsBinding
@@ -16,7 +18,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ConstructorStandingsFragment : Fragment() {
 
-    private lateinit var binding: FragmentConstructorStandingsBinding
+    private var _binding: FragmentConstructorStandingsBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: ConstructorStandingsAdapter
     private val viewModel: ConstructorStandingsViewModel by viewModels()
 
@@ -26,7 +29,7 @@ class ConstructorStandingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentConstructorStandingsBinding.inflate(inflater, container, false)
+        _binding = FragmentConstructorStandingsBinding.inflate(inflater, container, false)
         adapter = ConstructorStandingsAdapter()
 
         return binding.root
@@ -36,11 +39,12 @@ class ConstructorStandingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                state.constructorStandings?.let {
-                    setupStandingViews(it)
+            viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { state ->
+                    state.constructorStandings?.let {
+                        setupStandingViews(it)
+                    }
                 }
-            }
         }
     }
 
@@ -53,5 +57,10 @@ class ConstructorStandingsFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

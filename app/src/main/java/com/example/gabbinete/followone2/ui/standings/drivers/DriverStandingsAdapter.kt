@@ -9,7 +9,7 @@ import com.example.gabbinete.followone2.databinding.StandingListItemBinding
 import com.example.gabbinete.followone2.domain.DriverStandings
 import com.example.gabbinete.followone2.domain.Standings
 
-private const val TAG = "StandingsAdapter"
+private const val TAG = "DriverStandingsAdapter"
 
 class StandingsAdapter : RecyclerView.Adapter<StandingsAdapter.DriverStandingsViewHolder>() {
 
@@ -55,6 +55,7 @@ class StandingsAdapter : RecyclerView.Adapter<StandingsAdapter.DriverStandingsVi
 
     @SuppressLint("NotifyDataSetChanged")
     fun addStandings(standingsList: List<Standings>) {
+        list.clear()
         Log.d(TAG, "addStandings is called")
         list.addAll(standingsList)
         notifyDataSetChanged()

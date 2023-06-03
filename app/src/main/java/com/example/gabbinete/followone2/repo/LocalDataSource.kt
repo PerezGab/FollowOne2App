@@ -1,5 +1,6 @@
 package com.example.gabbinete.followone2.repo
 
+import com.example.gabbinete.followone2.api.models.NetworkRaceResult
 import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
 import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
 import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
@@ -15,4 +16,6 @@ interface LocalDataSource {
     suspend fun clearSeasonRaces()
     suspend fun upsertLastRace(race: LocalLastRace)
     suspend fun getLastRace(): List<LocalLastRace>
+    suspend fun getRaceByRound(round: String): LocalGrandPrix
+    suspend fun updateRaceResultWithRound(round: String, raceResults: List<NetworkRaceResult>?)
 }
