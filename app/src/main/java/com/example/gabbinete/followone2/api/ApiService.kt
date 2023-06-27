@@ -29,6 +29,10 @@ interface ApiService {
     @GET("current/last/results")
     suspend fun getLastRace(): RaceResponse
 
+    // Main of Last Grand Prix + Qualifying Results
+    @GET("current/last/qualifying")
+    suspend fun getLastQualy(): RaceResponse
+
     // Main of Grand Prix + Practice, Qualifying and Sprint sessions date.
     @GET("current/{round}")
     suspend fun getRace(@Path("round") round: String): RaceResponse
@@ -36,4 +40,8 @@ interface ApiService {
     // Main of Grand Prix + Race Results
     @GET("current/{round}/results")
     suspend fun getRaceResults(@Path("round") round: String): RaceResponse
+
+    // Main of Grand Prix + Qualifying Results
+    @GET("current/{round}/qualifying")
+    suspend fun getQualyResults(@Path("round") round: String): RaceResponse
 }

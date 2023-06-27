@@ -113,10 +113,10 @@ class RepositoryImpl @Inject constructor(
             emit(Response.Loading(isLoading = true))
             if (updateData) {
                 Log.d(TAG, "if condition is true")
+                updateSeasonRaces()
                 emit(Response.Success(localDataSource.getSeasonRaces().toDomainGrandPrix()))
             } else try {
                 Log.d(TAG, "if condition is false")
-                updateSeasonRaces()
                 emit(
                     Response.Success(
                         localDataSource.getSeasonRaces().toDomainGrandPrix()
@@ -152,6 +152,9 @@ class RepositoryImpl @Inject constructor(
             Log.d(TAG, "getLastRace try block. [updateLastRace() is called]")
             updateLastRace()
             val updatedRound = localDataSource.getLastRace()[0].round.toInt() - 1
+            updateRaceResultsByRound((updatedRound+1).toString())
+            updateQualyResultsByRound((updatedRound+1).toString())
+
             emit(Response.Success(listOf(localDataSource.getSeasonRaces()[updatedRound].toDomainGrandPrix())))
         } catch (e: HttpException) {
             emit(
@@ -228,6 +231,20 @@ class RepositoryImpl @Inject constructor(
             val raceResults = remoteDataSource.getRaceResults(round)
             if (raceResults != null) {
                 localDataSource.updateRaceResultWithRound(round, raceResults)
+            }
+        } catch (e: IOException) {
+            Log.d(TAG, "Can not access to internet. Error is ${e.message}")
+        } catch (e: HttpException) {
+            Log.d(TAG, "Could not reach the server. Error is ${e.message}")
+        }
+    }
+
+    override suspend fun updateQualyResultsByRound(round: String) {
+        Log.d(TAG, "updateQualyResultsByRound is called by the Repo. Round updated is $round")
+        try {
+            val qualyResults = remoteDataSource.getQualyResults(round)
+            if (qualyResults != null) {
+                localDataSource.updateQualyResultWithRound(round, qualyResults)
             }
         } catch (e: IOException) {
             Log.d(TAG, "Can not access to internet. Error is ${e.message}")

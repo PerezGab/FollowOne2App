@@ -2,6 +2,7 @@ package com.example.gabbinete.followone2.database
 
 import androidx.room.*
 import com.example.gabbinete.followone2.api.models.NetworkRaceResult
+import com.example.gabbinete.followone2.api.models.QualifyingResult
 import com.example.gabbinete.followone2.database.entities.*
 
 @Dao
@@ -39,4 +40,7 @@ interface F1Dao {
 
     @Query("UPDATE grand_prix SET raceResults = :raceResults WHERE round = :round")
     fun updateRaceResultWithRound(round: String, raceResults: List<NetworkRaceResult>?)
+
+    @Query("UPDATE grand_prix SET qualifyingResults = :qualyResult WHERE round = :round")
+    fun updateQualyResultWithRound(round: String, qualyResult: List<QualifyingResult>?)
 }

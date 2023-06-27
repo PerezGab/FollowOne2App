@@ -2,6 +2,7 @@ package com.example.gabbinete.followone2.api
 
 import android.util.Log
 import com.example.gabbinete.followone2.api.models.NetworkRaceResult
+import com.example.gabbinete.followone2.api.models.QualifyingResult
 import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
 import com.example.gabbinete.followone2.database.entities.LocalDriver
 import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
@@ -45,6 +46,22 @@ class ApiDataSource @Inject constructor(private val apiService: ApiService) : Re
         apiService.getLastRace().mrData.raceTable.networkGrandPrixes[0].toLocalLastRace()
     }
 
+//    override suspend fun getLastResults(): List<NetworkRaceResult>? = withContext(Dispatchers.IO) {
+//        try {
+//            apiService.getLastRace().mrData.raceTable.networkGrandPrixes[0].raceResults
+//        } catch (e: Exception) {
+//            null
+//        }
+//    }
+
+    override suspend fun getLastQualy(): List<QualifyingResult>? = withContext(Dispatchers.IO){
+        try {
+            apiService.getLastQualy().mrData.raceTable.networkGrandPrixes[0].qualifyingResults
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     override suspend fun getRace(round: String): LocalGrandPrix =
         withContext(Dispatchers.IO) {
             apiService.getRace(round).mrData.raceTable.networkGrandPrixes[0].toLocalGrandPrix()
@@ -58,5 +75,13 @@ class ApiDataSource @Inject constructor(private val apiService: ApiService) : Re
                 null
             }
         }
+
+    override suspend fun getQualyResults(round: String): List<QualifyingResult>? = withContext(Dispatchers.IO){
+        try {
+            apiService.getQualyResults(round).mrData.raceTable.networkGrandPrixes[0].qualifyingResults
+        } catch (e: Exception) {
+            null
+        }
+    }
 
 }

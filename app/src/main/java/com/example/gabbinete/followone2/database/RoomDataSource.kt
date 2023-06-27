@@ -2,6 +2,7 @@ package com.example.gabbinete.followone2.database
 
 import android.util.Log
 import com.example.gabbinete.followone2.api.models.NetworkRaceResult
+import com.example.gabbinete.followone2.api.models.QualifyingResult
 import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
 import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
 import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
@@ -66,13 +67,25 @@ class RoomDataSource @Inject constructor(private val room: F1Dao) : LocalDataSou
         room.getLastRace()
     }
 
-    override suspend fun getRaceByRound(round: String): LocalGrandPrix = withContext(Dispatchers.IO) {
-        Log.d(TAG, "getRaceById calls Room.")
-        room.getRaceByRound(round)
-    }
+    override suspend fun getRaceByRound(round: String): LocalGrandPrix =
+        withContext(Dispatchers.IO) {
+            Log.d(TAG, "getRaceById calls Room.")
+            room.getRaceByRound(round)
+        }
 
-    override suspend fun updateRaceResultWithRound(round: String, raceResults: List<NetworkRaceResult>?) = withContext(Dispatchers.IO){
+    override suspend fun updateRaceResultWithRound(
+        round: String,
+        raceResults: List<NetworkRaceResult>?
+    ) = withContext(Dispatchers.IO) {
         Log.d(TAG, "updateRaceResultWithRound calls Room. Round $round results are being updated.")
         room.updateRaceResultWithRound(round, raceResults)
+    }
+
+    override suspend fun updateQualyResultWithRound(
+        round: String,
+        qualifyingResult: List<QualifyingResult>?
+    ) = withContext(Dispatchers.IO) {
+        Log.d(TAG, "updateQualyResultWithRound calls Room. Round $round qualies are being updated.")
+        room.updateQualyResultWithRound(round, qualifyingResult)
     }
 }

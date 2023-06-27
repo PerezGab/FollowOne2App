@@ -15,6 +15,7 @@ interface Repository {
     fun getLastRace(updateData: Boolean): Flow<Response<List<GrandPrix>>>
     fun getRaceByRound(round: String): Flow<Response<GrandPrix>>
     suspend fun updateRaceResultsByRound(round: String)
+    suspend fun updateQualyResultsByRound(round: String)
     suspend fun updateSeasonRaces()
     suspend fun updateDriverStandings()
     suspend fun updateConstructorStandings()

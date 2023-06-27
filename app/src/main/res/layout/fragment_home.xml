@@ -25,21 +25,32 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/prompt"
-        android:textSize="20sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/next_race"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Next Grand Prix" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/next_gp_countdown_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:fontFamily="@font/prompt"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/next_gp_name"
+        tools:text="55d 10hs 11m" />
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/next_gp_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/prompt"
+        app:layout_constraintBaseline_toBaselineOf="@+id/next_race_round"
         app:layout_constraintEnd_toEndOf="@+id/next_gp_name"
         app:layout_constraintStart_toStartOf="@+id/next_gp_name"
-        app:layout_constraintTop_toBottomOf="@+id/next_gp_name"
         tools:text="year-month-day" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -65,12 +76,13 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/next_race_round"
+        android:layout_margin="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/prompt"
         app:layout_constraintEnd_toEndOf="@+id/next_race"
         app:layout_constraintStart_toStartOf="@+id/next_race"
-        app:layout_constraintTop_toBottomOf="@+id/next_race"
+        app:layout_constraintTop_toBottomOf="@+id/next_gp_countdown_time"
         tools:text="Round 1" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -79,10 +91,140 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/prompt"
-        android:textSize="20sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/last_race_results"
         app:layout_constraintTop_toBottomOf="@+id/next_gp_circuit_name"
         tools:text="Last Grand Prix" />
+
+    <TextView
+        android:id="@+id/first_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/_1st_place"
+        app:layout_constraintEnd_toEndOf="@+id/last_race_results"
+        app:layout_constraintStart_toStartOf="@+id/last_race_results"
+        app:layout_constraintTop_toBottomOf="@+id/last_race_results" />
+
+    <TextView
+        android:id="@+id/last_gp_first_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/first_place"
+        app:layout_constraintTop_toBottomOf="@+id/last_gp_name"
+        tools:text="Max Verstappen" />
+
+    <TextView
+        android:id="@+id/second_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/_2nd_place"
+        app:layout_constraintEnd_toEndOf="@+id/last_race_results"
+        app:layout_constraintStart_toStartOf="@+id/last_race_results"
+        app:layout_constraintTop_toBottomOf="@+id/first_place" />
+
+    <TextView
+        android:id="@+id/last_gp_second_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/second_place"
+        app:layout_constraintTop_toBottomOf="@+id/last_gp_first_driver"
+        tools:text="Sergio Pérez" />
+
+    <TextView
+        android:id="@+id/third_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/_3rd_place"
+        app:layout_constraintEnd_toEndOf="@+id/last_race_results"
+        app:layout_constraintStart_toStartOf="@+id/last_race_results"
+        app:layout_constraintTop_toBottomOf="@+id/second_place" />
+
+    <TextView
+        android:id="@+id/last_gp_third_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:layout_marginTop="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/third_place"
+        app:layout_constraintTop_toBottomOf="@+id/last_gp_second_driver"
+        tools:text="Lewis Hamilton" />
+
+    <TextView
+        android:id="@+id/pole_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/pole_position"
+        app:layout_constraintEnd_toEndOf="@+id/last_race_results"
+        app:layout_constraintEnd_toStartOf="@+id/last_gp_pole_driver"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/last_gp_fastest_lap" />
+
+    <TextView
+        android:id="@+id/last_gp_pole_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/pole_position"
+        app:layout_constraintEnd_toStartOf="@+id/last_gp_pole_time"
+        app:layout_constraintStart_toEndOf="@+id/pole_position"
+        tools:text="Charles Leclerc" />
+
+    <TextView
+        android:id="@+id/last_gp_pole_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/last_gp_pole_driver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/last_gp_pole_driver"
+        app:layout_constraintTop_toBottomOf="@+id/last_gp_third_driver"
+        tools:text="1:24.357" />
+
+    <TextView
+        android:id="@+id/last_gp_fastest_lap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:text="@string/fastest_lap"
+        app:layout_constraintEnd_toEndOf="@+id/last_race_results"
+        app:layout_constraintEnd_toStartOf="@+id/last_gp_fastest_lap_driver"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/last_gp_third_driver" />
+
+    <TextView
+        android:id="@+id/last_gp_fastest_lap_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/last_gp_fastest_lap_time"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/last_gp_fastest_lap"
+        app:layout_constraintTop_toBottomOf="@+id/last_gp_third_driver"
+        tools:text="Max Verstappen" />
+
+    <TextView
+        android:id="@+id/last_gp_fastest_lap_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/last_gp_fastest_lap_driver"
+        app:layout_constraintTop_toBottomOf="@+id/last_gp_third_driver"
+        tools:text="1:27.852" />
+
+    <!--    -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

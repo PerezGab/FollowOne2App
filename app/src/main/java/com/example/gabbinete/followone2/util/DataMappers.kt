@@ -16,6 +16,12 @@ import com.example.gabbinete.followone2.domain.ConstructorStandings
 import com.example.gabbinete.followone2.domain.DriverStandings
 import com.example.gabbinete.followone2.domain.GrandPrix
 import com.example.gabbinete.followone2.domain.RaceResults
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 
 fun List<LocalDriverStandings>.toDomainDriverStandings(): List<DriverStandings> {
     return map { it.toDomainDriverStandings() }
@@ -56,4 +62,40 @@ fun List<NetworkGrandPrix>.toLocalGrandPrixList(): List<LocalGrandPrix> {
 
 fun List<NetworkRaceResult>.toDomainRaceResultsList(): List<RaceResults> {
     return map { it.toDomainRaceResult() }
+}
+
+fun String.formatDate(): String {
+        val formatParser = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val dateParsed = LocalDate.parse(this@formatDate, formatParser)
+        val result = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        return dateParsed.format(result)
+    }
+
+fun String.formatTime(): String {
+        val formatterParser = DateTimeFormatter.ofPattern("HH:mm:ss'Z'")
+        val formatterResult = DateTimeFormatter.ofPattern("HH:mm")
+        val timeResult = LocalTime.parse(this@formatTime, formatterParser).format(formatterResult)
+        return timeResult + " HS"
+    }
+
+fun String.formatToSeconds(): Long {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+    return LocalDateTime.parse(this, formatter).toEpochSecond(ZoneOffset.UTC)
+}
+
+fun countdownFormatter(gpTime: Long): String {
+    val currentTime = Instant.now().epochSecond
+    val countdownValueSeconds = gpTime - currentTime
+    val countdownValueMinutes = ((countdownValueSeconds / 60) % 60)
+    val countdownValueHours = ((countdownValueSeconds / (60 * 60)) % 24)
+    val countdownValueDays = (((countdownValueSeconds / 60) / 60) / 24)
+    return if (countdownValueSeconds < 0) "Already started." else when {
+        countdownValueDays > 1 -> "$countdownValueDays days ${countdownValueHours}hs ${countdownValueMinutes}min left"
+        countdownValueDays.toInt() == 1 -> "$countdownValueDays day ${countdownValueHours}hs ${countdownValueMinutes}min left"
+        else -> when {
+            countdownValueHours > 1 -> "$countdownValueHours hours ${countdownValueMinutes}min left"
+            countdownValueHours.toInt() == 1 -> "$countdownValueHours hour ${countdownValueMinutes}min left"
+            else -> "$countdownValueMinutes minutes left"
+        }
+    }
 }
