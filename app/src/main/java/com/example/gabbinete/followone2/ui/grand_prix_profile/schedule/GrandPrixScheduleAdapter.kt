@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gabbinete.followone2.databinding.GrandPrixSessionsListItemBinding
 import com.example.gabbinete.followone2.domain.Session
 import com.example.gabbinete.followone2.domain.SessionEnum
+import com.example.gabbinete.followone2.util.formatDate
+import com.example.gabbinete.followone2.util.formatTime
 
 private const val TAG = "GrandPrixSchAdapter"
 
@@ -36,8 +38,9 @@ class GrandPrixScheduleAdapter :
                 SessionEnum.SPRINT -> "Sprint"
                 SessionEnum.RACE -> "Race"
             }
-            binding.sessionDateText.text = item.date
-            binding.sessionTimeText.text = item.time
+
+            binding.sessionTimeText.text = item.time.formatTime()
+            binding.sessionDateText.text = item.date.formatDate()
         }
 
         companion object {
