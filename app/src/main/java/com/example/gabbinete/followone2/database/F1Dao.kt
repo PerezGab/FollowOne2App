@@ -1,9 +1,15 @@
 package com.example.gabbinete.followone2.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Upsert
 import com.example.gabbinete.followone2.api.models.NetworkRaceResult
 import com.example.gabbinete.followone2.api.models.QualifyingResult
-import com.example.gabbinete.followone2.database.entities.*
+import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
+import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
+import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
+import com.example.gabbinete.followone2.database.entities.LocalLastRace
 
 @Dao
 interface F1Dao {
@@ -11,8 +17,11 @@ interface F1Dao {
     @Query("SELECT * FROM driver_standings")
     fun getDriverStandings(): List<LocalDriverStandings>
 
-    @Upsert
-    suspend fun upsertDriverStandings(standings: List<LocalDriverStandings>)
+    @Insert
+    suspend fun insertDriverStandings(standings: List<LocalDriverStandings>)
+
+    @Query("DELETE FROM driver_standings")
+    suspend fun deleteDriverStandings()
 
     @Query("SELECT * FROM constructor_standings")
     fun getConstructorStandings(): List<LocalConstructorStandings>

@@ -25,7 +25,8 @@ class RoomDataSource @Inject constructor(private val room: F1Dao) : LocalDataSou
     override suspend fun upsertDriverStandings(standings: List<LocalDriverStandings>) =
         withContext(Dispatchers.IO) {
             Log.d(TAG, "upsertDriverStandings sends to Room.")
-            room.upsertDriverStandings(standings)
+            room.deleteDriverStandings()
+            room.insertDriverStandings(standings)
         }
 
     override suspend fun getConstructorStandings(): List<LocalConstructorStandings> =

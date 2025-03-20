@@ -27,6 +27,7 @@
                 android:layout_margin="4dp"
                 android:fontFamily="@font/prompt"
                 android:padding="4dp"
+                android:textColor="@color/md_theme_light_onSurface"
                 app:layout_constraintStart_toEndOf="@id/session_date_text"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Free Practice 1" />
@@ -38,6 +39,7 @@
                 android:layout_margin="4dp"
                 android:fontFamily="@font/prompt"
                 android:padding="4dp"
+                android:textColor="@color/md_theme_light_onSurface"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,6 +52,7 @@
                 android:layout_margin="4dp"
                 android:fontFamily="@font/prompt"
                 android:padding="4dp"
+                android:textColor="@color/md_theme_light_onSurface"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/session_date_text"
                 app:layout_constraintTop_toBottomOf="@id/session_name_text"

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gabbinete.followone2.databinding.GrandprixListItemBinding
 import com.example.gabbinete.followone2.domain.GrandPrix
+import com.example.gabbinete.followone2.util.formatDate
 
 private const val TAG = "CalendarAdapter"
 
@@ -33,8 +34,8 @@ class CalendarAdapter(private val clickListener: GrandPrixListener) : RecyclerVi
             binding.apply {
                 grandPrix = item
                 this.clickListener = clickListener
-                dateText.text = item.date
-                grandPrixNameText.text = item.formalTitleName
+                dateText.text = item.date?.formatDate()
+                grandPrixNameText.text = item.raceName
                 circuitName.text = item.circuit?.circuitName
                 "Round ${item.round}".also { roundText.text = it }
             }

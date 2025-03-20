@@ -34,6 +34,10 @@ data class Driver(
             "Spanish" -> R.drawable.flag_spa
             "Thai" -> R.drawable.flag_tha
             "American" -> R.drawable.flag_usa
+            "Argentinian " -> R.drawable.flag_arg
+            "Italian" -> R.drawable.flag_ita
+            "New Zealander" -> R.drawable.flag_nzl
+            "Brazilian" -> R.drawable.flag_bra
             else -> null
         }
 }

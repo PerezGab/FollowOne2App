@@ -15,7 +15,7 @@ import javax.inject.Named
 
 @HiltViewModel
 class CalendarFragmentViewModel @Inject constructor(
-    @Named("getSeasonRaces") private val getSeasonRacesUseCase: GetTablesUseCase<GrandPrix>
+    @Named("getSeasonRacesUseCase") private val getSeasonRacesUseCase: GetTablesUseCase<GrandPrix>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(CalendarFragmentState(null, true, null))

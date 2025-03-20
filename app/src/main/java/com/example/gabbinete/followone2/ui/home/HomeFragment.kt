@@ -25,14 +25,11 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-
 
         lifecycleScope.launch {
 
@@ -60,11 +57,11 @@ class HomeFragment : Fragment() {
 
                         state.nextGP?.let { nextGP ->
                             if (state.shouldUpdateCountdown) {
-                                Log.d(TAG, "shouldUpdateCountdown value is ${state.shouldUpdateCountdown}")
+                                Log.i(TAG, "shouldUpdateCountdown value is ${state.shouldUpdateCountdown}")
                                 viewModel.calculateCountdown(nextGP.date!!, nextGP.time!!)
-                                viewModel.timerCountdown()
+                                viewModel.startTimerCountdown()
                             }
-                            Log.d(TAG, "shouldUpdateCountdown value is ${state.shouldUpdateCountdown}")
+                            Log.i(TAG, "shouldUpdateCountdown value is ${state.shouldUpdateCountdown}")
                             nextGP.date?.let { viewModel.formatDate(it) }
                             nextGpName.text = nextGP.raceName
                             nextGpCircuitName.text = nextGP.circuit?.circuitName
@@ -80,8 +77,21 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.restartTimerCountdown()
+        Log.i(TAG, "onResume() called. Countdown has been started.")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        Log.i(TAG, "onDestroyView() called. ")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        viewModel.cancelTimerCountdown()
+        Log.i(TAG, "onDestroyView() called. Countdown has been canceled.")
     }
 }

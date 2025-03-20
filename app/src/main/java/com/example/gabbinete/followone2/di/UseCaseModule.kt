@@ -15,22 +15,30 @@ import javax.inject.Named
 interface UseCaseModule {
 
     @Binds
-    @Named("getSeasonRaces")
-    fun getSeasonRacesUseCaseBinder(getSeasonRacesUseCase: GetSeasonRacesUseCase): GetTablesUseCase<GrandPrix>
+    @Named("getSeasonRacesUseCase")
+    fun bindGetSeasonRacesUseCase(getSeasonRacesUseCase: GetSeasonRacesUseCase): GetTablesUseCase<GrandPrix>
 
     @Binds
-    @Named("getLastRace")
-    fun getLastRaceUseCaseBinder(getLastRaceUseCase: GetLastRaceUseCase): GetTablesUseCase<GrandPrix>
+    @Named("getLastRaceUseCase")
+    fun bindGetLastRaceUseCase(getLastRaceUseCase: GetLastRaceUseCase): GetTablesUseCase<GrandPrix>
 
     @Binds
-    fun getDriverStandingsUseCaseBinder(getDriverStandingsUseCase: GetDriverStandingsUseCase): GetTablesUseCase<DriverStandings>
+    fun bindGetDriverStandingsUseCase(getDriverStandingsUseCase: GetDriverStandingsUseCase): GetTablesUseCase<DriverStandings>
 
     @Binds
-    fun getConstructorStandingsUseCaseBinder(getConstructorStandingsUseCase: GetConstructorStandingsUseCase): GetTablesUseCase<ConstructorStandings>
+    fun bindGetConstructorStandingsUseCase(getConstructorStandingsUseCase: GetConstructorStandingsUseCase): GetTablesUseCase<ConstructorStandings>
 
     @Binds
-    fun isDataStoredUseCaseBinder(isDataStoredUseCase: IsDataStoredUseCase): IsConditionUseCase<Boolean>
+    fun bindIsDataStoredUseCase(isDataStoredUseCase: IsDataStoredUseCase): IsConditionUseCase<Boolean>
 
     @Binds
-    fun getRaceResultsByRoundUseCaseBinder(getRaceByRoundUseCase: GetRaceByRoundUseCase): GetByIdUseCase<GrandPrix>
+    fun bindGetRaceResultsByRoundUseCase(getRaceByRoundUseCase: GetRaceByRoundUseCase): GetByIdUseCase<GrandPrix>
+
+    @Binds
+    @Named("onStartUp")
+    fun bindOnStartUpUseCase(onStartUpUseCase: OnStartUpUseCase): OnEventUseCase
+
+    @Binds
+    @Named("onDataStoredCompleted")
+    fun bindOnDataStoredCompletedUseCase(onDataStoredCompletedUseCase: OnDataStoredCompletedUseCase): OnEventUseCase
 }

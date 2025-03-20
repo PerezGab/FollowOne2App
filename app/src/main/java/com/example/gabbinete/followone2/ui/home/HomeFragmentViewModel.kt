@@ -16,7 +16,9 @@ import com.example.gabbinete.followone2.util.formatDate
 import com.example.gabbinete.followone2.util.formatToSeconds
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
@@ -25,11 +27,13 @@ private const val TAG = "HomeFragmentViewModel"
 
 @HiltViewModel
 class HomeFragmentViewModel @Inject constructor(
-    @Named("getSeasonRaces") private val getSeasonRacesUseCase: GetTablesUseCase<GrandPrix>,
-    @Named("getLastRace") private val getLastRaceUseCase: GetTablesUseCase<GrandPrix>,
+    @Named("getSeasonRacesUseCase") private val getSeasonRacesUseCase: GetTablesUseCase<GrandPrix>,
+    @Named("getLastRaceUseCase") private val getLastRaceUseCase: GetTablesUseCase<GrandPrix>,
     private val isDataStoredUseCase: IsConditionUseCase<Boolean>,
 //    private val workManager: WorkManager
 ) : ViewModel() {
+
+    private lateinit var timer:CountDownTimer
 
     private var _state = MutableStateFlow(
         HomeFragmentState(
@@ -39,7 +43,7 @@ class HomeFragmentViewModel @Inject constructor(
             "",
             null,
             "",
-            true
+            false
         )
     )
     val state = _state.asStateFlow()
@@ -201,11 +205,11 @@ class HomeFragmentViewModel @Inject constructor(
         }
     }
 
-    fun timerCountdown() {
+    fun startTimerCountdown() {
         _state.update { it.copy(shouldUpdateCountdown = false) }
         Log.d(TAG, "timer Countdown(). shouldUpdateCountdown is false")
-        val timer = object : CountDownTimer(ONE_MINUTE, ONE_SECOND) {
-            override fun onTick(millisUntilFinished: Long) { }
+        timer = object : CountDownTimer(ONE_MINUTE, ONE_SECOND) {
+            override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
                 _state.update { it.copy(shouldUpdateCountdown = true) }
@@ -213,6 +217,14 @@ class HomeFragmentViewModel @Inject constructor(
             }
         }
         timer.start()
+    }
+
+    fun restartTimerCountdown() {
+        _state.update { it.copy(shouldUpdateCountdown = true) }
+    }
+
+    fun cancelTimerCountdown() {
+        timer.cancel()
     }
 }
 

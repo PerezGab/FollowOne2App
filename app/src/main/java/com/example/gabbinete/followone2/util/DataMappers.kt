@@ -48,7 +48,12 @@ fun List<NetworkConstructor>.toLocalConstructorList(): List<LocalConstructor> {
 }
 
 fun List<NetworkDriverStanding>.toLocalDriverStandings(): List<LocalDriverStandings> {
-    return map { it.toLocalDriverStandings() }
+    return mapIndexed { index, networkDriverStanding ->
+        val position = networkDriverStanding.position?.takeIf { it.isNotBlank() }
+            ?: (index + 1).toString()
+
+        networkDriverStanding.toLocalDriverStandings(position)
+    }
 }
 
 fun List<NetworkConstructorStanding>.toLocalConstructorStandings(): List<LocalConstructorStandings> {
