@@ -25,6 +25,8 @@ data class Constructor(
             "Haas F1 Team" -> R.drawable.logo_haas
             "AlphaTauri" -> R.drawable.logo_alpha_tauri
             "Williams" -> R.drawable.logo_williams
+            "Sauber" -> R.drawable.logo_kick_sauber
+            "RB F1 Team" -> R.drawable.logo_racing_bulls
             else -> null
         }
 }

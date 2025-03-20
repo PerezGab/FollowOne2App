@@ -1,5 +1,6 @@
 package com.example.gabbinete.followone2.di
 
+import android.content.Context
 import com.example.gabbinete.followone2.api.ApiDataSource
 import com.example.gabbinete.followone2.database.RoomDataSource
 import com.example.gabbinete.followone2.repo.LocalDataSource
@@ -9,6 +10,7 @@ import com.example.gabbinete.followone2.repo.RepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -26,6 +28,6 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun repositoryProvider(api: RemoteDataSource, dao: LocalDataSource): Repository =
-        RepositoryImpl(api, dao)
+    fun repositoryProvider(@ApplicationContext context: Context, api: RemoteDataSource, dao: LocalDataSource): Repository =
+        RepositoryImpl(context, api, dao)
 }

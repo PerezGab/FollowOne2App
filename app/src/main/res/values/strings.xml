@@ -9,14 +9,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="standings">Standings</string>
     <string name="item_flag">Driver\'s National Flag</string>
-    <string name="next_race_text">Next Grand Prix:</string>
-    <string name="last_race_text">Last Race Results:</string>
+    <string name="next_race_text">Next Grand Prix</string>
+    <string name="last_race_text">Last Race Results</string>
     <string name="calendar">Calendar</string>
     <string name="news">News</string>
     <string name="error_http">Could not reach the server.</string>
     <string name="grand_prix_name_sample">Gulf Air Bahrain Grand Prix</string>
     <string name="grand_prix_circuit_sample">Bahrain International Circuit</string>
-    <string name="grand_prix_date_sample">5–3–2023</string>
+    <string name="grand_prix_date_sample">05 May</string>
     <string name="grand_prix_country_flag_description">Grand Prix country flag</string>
     <string name="grand_prix_circuit_description">Grand Prix Circuit</string>
     <string name="race_weekend">Race Weekend</string>
@@ -27,6 +27,8 @@
     <string name="_3rd_place">3rd Place</string>
     <string name="pole_position">Pole Position</string>
     <string name="fastest_lap">Fastest Lap</string>
+    <string name="can_not_access_to_internet_check_your_connection">Can not access to internet. Check your connection.</string>
+    <string name="could_not_reach_the_server">Could not reach the server.</string>
 
 
 </resources>

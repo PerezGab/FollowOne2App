@@ -1,6 +1,7 @@
 package com.example.gabbinete.followone2.repo
 
 import com.example.gabbinete.followone2.domain.ConstructorStandings
+import com.example.gabbinete.followone2.domain.Driver
 import com.example.gabbinete.followone2.domain.DriverStandings
 import com.example.gabbinete.followone2.domain.GrandPrix
 import com.example.gabbinete.followone2.util.Response
@@ -14,6 +15,7 @@ interface Repository {
     fun getCurrentSeasonRaces(updateData: Boolean): Flow<Response<List<GrandPrix>>>
     fun getLastRace(updateData: Boolean): Flow<Response<List<GrandPrix>>>
     fun getRaceByRound(round: String): Flow<Response<GrandPrix>>
+    fun getDriverById(id: String): Flow<Response<Driver>>
     suspend fun updateRaceResultsByRound(round: String)
     suspend fun updateQualyResultsByRound(round: String)
     suspend fun updateSeasonRaces()
@@ -22,5 +24,6 @@ interface Repository {
     suspend fun updateLastRace()
     suspend fun dataStoredCompleted()
     suspend fun areTablesEmpty(): Boolean
+    suspend fun updateCurrentDrivers()
     val isDataStored: StateFlow<Boolean>
 }

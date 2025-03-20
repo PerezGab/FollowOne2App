@@ -15,7 +15,14 @@ data class Driver(
     val familyName: String,
     val dateOfBirth: String,
     val nationality: String
-):Parcelable {
+) : Parcelable {
+
+    companion object {
+        val defaultDriver = Driver(
+            "driver", "0", "driver", "", "Default", "Driver", "", "Argentinian"
+        )
+    }
+
     @IgnoredOnParcel
     val mapFlag: Int? =
         when (nationality) {
@@ -35,6 +42,7 @@ data class Driver(
             "Thai" -> R.drawable.flag_tha
             "American" -> R.drawable.flag_usa
             "Argentinian " -> R.drawable.flag_arg
+            "Argentine" -> R.drawable.flag_arg
             "Italian" -> R.drawable.flag_ita
             "New Zealander" -> R.drawable.flag_nzl
             "Brazilian" -> R.drawable.flag_bra

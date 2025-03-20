@@ -1,13 +1,17 @@
 package com.example.gabbinete.followone2.repo
 
+import android.content.Context
 import android.util.Log
+import com.example.gabbinete.followone2.R
 import com.example.gabbinete.followone2.domain.ConstructorStandings
+import com.example.gabbinete.followone2.domain.Driver
 import com.example.gabbinete.followone2.domain.DriverStandings
 import com.example.gabbinete.followone2.domain.GrandPrix
 import com.example.gabbinete.followone2.util.Response
 import com.example.gabbinete.followone2.util.toDomainConstructorStandings
 import com.example.gabbinete.followone2.util.toDomainDriverStandings
 import com.example.gabbinete.followone2.util.toDomainGrandPrix
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,6 +23,7 @@ import javax.inject.Inject
 private const val TAG = "RepositoryImpl"
 
 class RepositoryImpl @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : Repository {
@@ -60,14 +65,14 @@ class RepositoryImpl @Inject constructor(
                 emit(
                     Response.Error(
                         localDataSource.getDriversStandings().toDomainDriverStandings(),
-                        "Could not reach the server."
+                        context.getString(R.string.could_not_reach_the_server)
                     )
                 )
             } catch (e: IOException) {
                 emit(
                     Response.Error(
                         localDataSource.getDriversStandings().toDomainDriverStandings(),
-                        "Can not access to internet. Check your connection."
+                        context.getString(R.string.can_not_access_to_internet_check_your_connection)
                     )
                 )
             }
@@ -94,14 +99,14 @@ class RepositoryImpl @Inject constructor(
                 emit(
                     Response.Error(
                         localDataSource.getConstructorStandings().toDomainConstructorStandings(),
-                        "Could not reach the server."
+                        context.getString(R.string.could_not_reach_the_server)
                     )
                 )
             } catch (e: IOException) {
                 emit(
                     Response.Error(
                         localDataSource.getConstructorStandings().toDomainConstructorStandings(),
-                        "Can not access to internet. Check your connection."
+                        context.getString(R.string.can_not_access_to_internet_check_your_connection)
                     )
                 )
             }
@@ -126,14 +131,14 @@ class RepositoryImpl @Inject constructor(
                 emit(
                     Response.Error(
                         localDataSource.getSeasonRaces().toDomainGrandPrix(),
-                        "Could not reach the server."
+                        context.getString(R.string.could_not_reach_the_server)
                     )
                 )
             } catch (e: IOException) {
                 emit(
                     Response.Error(
                         localDataSource.getSeasonRaces().toDomainGrandPrix(),
-                        "Can not access to internet. Check your connection."
+                        context.getString(R.string.can_not_access_to_internet_check_your_connection)
                     )
                 )
             }
@@ -152,22 +157,21 @@ class RepositoryImpl @Inject constructor(
             Log.d(TAG, "getLastRace try block. [updateLastRace() is called]")
             updateLastRace()
             val updatedRound = localDataSource.getLastRace()[0].round.toInt() - 1
-            updateRaceResultsByRound((updatedRound+1).toString())
-            updateQualyResultsByRound((updatedRound+1).toString())
+            updateRaceResultsByRound((updatedRound + 1).toString())
+            updateQualyResultsByRound((updatedRound + 1).toString())
 
             emit(Response.Success(listOf(localDataSource.getSeasonRaces()[updatedRound].toDomainGrandPrix())))
         } catch (e: HttpException) {
             emit(
                 Response.Error(
                     listOf(localDataSource.getSeasonRaces()[cachedLastRace.round.toInt() - 1].toDomainGrandPrix()),
-                    "Could not reach the server."
-                )
+                    context.getString(R.string.could_not_reach_the_server)                )
             )
         } catch (e: IOException) {
             emit(
                 Response.Error(
                     listOf(localDataSource.getSeasonRaces()[cachedLastRace.round.toInt() - 1].toDomainGrandPrix()),
-                    "Can not access to internet. Check your connection."
+                    context.getString(R.string.can_not_access_to_internet_check_your_connection)
                 )
             )
         }
@@ -186,14 +190,52 @@ class RepositoryImpl @Inject constructor(
             emit(
                 Response.Error(
                     localDataSource.getSeasonRaces()[round.toInt() - 1].toDomainGrandPrix(),
-                    "Could not reach the server."
-                )
+                    context.getString(R.string.could_not_reach_the_server)                )
             )
         } catch (e: IOException) {
             emit(
                 Response.Error(
                     localDataSource.getSeasonRaces()[round.toInt() - 1].toDomainGrandPrix(),
-                    "Can not access to internet. Check your connection."
+                    context.getString(R.string.can_not_access_to_internet_check_your_connection)
+                )
+            )
+        }
+    }
+
+    override fun getDriverById(id: String): Flow<Response<Driver>> = flow {
+        emit(Response.Loading())
+        val drivers = localDataSource.getDrivers().map { it.toDomainDriver() }
+
+        if (drivers.isNotEmpty()) {
+            emit(
+                Response.Success(
+                    drivers.find { it.driverId == id }
+                        ?: Driver.defaultDriver
+                )
+            )
+        }
+        try {
+            updateCurrentDrivers()
+            emit(
+                Response.Success(
+                    drivers.find { it.driverId == id }
+                        ?: Driver.defaultDriver
+                )
+            )
+        } catch (e: HttpException) {
+            emit(
+                Response.Error(
+                    drivers.find { it.driverId == id }
+                        ?: Driver.defaultDriver,
+                    context.getString(R.string.could_not_reach_the_server)
+                )
+            )
+        } catch (e: IOException) {
+            emit(
+                Response.Error(
+                    drivers.find { it.driverId == id }
+                        ?: Driver.defaultDriver,
+                    context.getString(R.string.can_not_access_to_internet_check_your_connection)
                 )
             )
         }
@@ -211,6 +253,14 @@ class RepositoryImpl @Inject constructor(
         Log.d(TAG, "updateDriverStandings is called by the Repo")
         val standings = remoteDataSource.getCurrentSeasonDriverStandings()
         localDataSource.upsertDriverStandings(standings)
+    }
+
+    override suspend fun updateCurrentDrivers() {
+        Log.d(TAG, "updateCurrentDrivers is called by the Repo")
+        val drivers = remoteDataSource.getCurrentDrivers()
+        drivers.forEach { driver ->
+            localDataSource.upsertDriver(driver)
+        }
     }
 
     override suspend fun updateConstructorStandings() {

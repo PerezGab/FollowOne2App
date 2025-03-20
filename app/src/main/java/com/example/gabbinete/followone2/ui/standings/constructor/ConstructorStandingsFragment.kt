@@ -41,6 +41,9 @@ class ConstructorStandingsFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect { state ->
+                    binding.constructorStandingsProgressBar.visibility = if (state.isLoading) View.VISIBLE else View.INVISIBLE
+                    binding.recyclerView.visibility = if (state.isLoading) View.INVISIBLE else View.VISIBLE
+
                     state.constructorStandings?.let {
                         setupStandingViews(it)
                     }

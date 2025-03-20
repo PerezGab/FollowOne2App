@@ -35,8 +35,9 @@ class CalendarAdapter(private val clickListener: GrandPrixListener) : RecyclerVi
                 grandPrix = item
                 this.clickListener = clickListener
                 dateText.text = item.date?.formatDate()
-                grandPrixNameText.text = item.raceName
+                grandPrixNameText.text = item.formalTitleName
                 circuitName.text = item.circuit?.circuitName
+                item.circuit?.location?.countryFlag?.let { calendarGrandPrixFlag.setImageResource(it) }
                 "Round ${item.round}".also { roundText.text = it }
             }
         }

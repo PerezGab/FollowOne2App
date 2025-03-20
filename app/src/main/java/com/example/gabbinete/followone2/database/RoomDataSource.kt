@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.gabbinete.followone2.api.models.NetworkRaceResult
 import com.example.gabbinete.followone2.api.models.QualifyingResult
 import com.example.gabbinete.followone2.database.entities.LocalConstructorStandings
+import com.example.gabbinete.followone2.database.entities.LocalDriver
 import com.example.gabbinete.followone2.database.entities.LocalDriverStandings
 import com.example.gabbinete.followone2.database.entities.LocalGrandPrix
 import com.example.gabbinete.followone2.database.entities.LocalLastRace
@@ -88,5 +89,15 @@ class RoomDataSource @Inject constructor(private val room: F1Dao) : LocalDataSou
     ) = withContext(Dispatchers.IO) {
         Log.d(TAG, "updateQualyResultWithRound calls Room. Round $round qualies are being updated.")
         room.updateQualyResultWithRound(round, qualifyingResult)
+    }
+
+    override suspend fun getDrivers(): List<LocalDriver> = withContext(Dispatchers.IO) {
+        Log.d(TAG, "getDrivers calls Room.")
+        room.getDrivers()
+    }
+
+    override suspend fun upsertDriver(driver: LocalDriver) = withContext(Dispatchers.IO) {
+        Log.d(TAG, "upsertDriver calls Room.")
+        room.upsertDriver(driver)
     }
 }

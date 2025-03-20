@@ -50,11 +50,11 @@ class CalendarFragmentViewModel @Inject constructor(
     }
 
     fun onGrandPrixClick(gp: GrandPrix) {
-        _state.update { it.copy(navigateToGrandPrixProfile = gp) }
+        viewModelScope.launch { _state.update { it.copy(navigateToGrandPrixProfile = gp) } }
     }
 
     fun onGrandPrixNavigated() {
-        _state.update { it.copy(navigateToGrandPrixProfile = null) }
+        viewModelScope.launch { _state.update { it.copy(navigateToGrandPrixProfile = null) } }
     }
 }
 

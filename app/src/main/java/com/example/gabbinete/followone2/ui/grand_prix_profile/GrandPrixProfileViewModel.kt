@@ -28,21 +28,21 @@ class GrandPrixProfileViewModel @Inject constructor(
                     is Response.Loading -> _state.update { state ->
                         state.copy(
                             grandPrix = result.data,
-                            isLoading = true
+                            isLoading = result.isLoading
                         )
                     }
 
                     is Response.Success -> _state.update { state ->
                         state.copy(
                             grandPrix = result.data,
-                            isLoading = false
+                            isLoading = result.isLoading
                         )
                     }
 
                     is Response.Error -> _state.update { state ->
                         state.copy(
                             grandPrix = result.data,
-                            isLoading = false
+                            isLoading = result.isLoading
                         )
                     }
                 }

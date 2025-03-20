@@ -37,7 +37,6 @@ class CalendarFragment : Fragment() {
             viewModel.onGrandPrixClick(gp)
         })
 
-
         return binding.root
     }
 
@@ -48,6 +47,9 @@ class CalendarFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect { state ->
+                    binding.calendarProgressBar.visibility = if (state.isLoading) View.VISIBLE else View.INVISIBLE
+                    binding.grandPrixList.visibility = if (state.isLoading) View.INVISIBLE else View.VISIBLE
+
                     state.calendar?.let { setupCalendar(it) }
 
                     state.navigateToGrandPrixProfile?.let {
