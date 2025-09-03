@@ -13,10 +13,11 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.gabbinete.followone2.databinding.ActivityMainBinding
-import com.example.gabbinete.followone2.repo.Repository
+import com.example.gabbinete.followone2.use_case.OnEventUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 private const val TAG = "MainActivity"
 
@@ -27,8 +28,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     @Inject
-    lateinit var repo: Repository
+    @Named("onStartUp")
+    lateinit var onStartUpUseCase: OnEventUseCase
+
+    @Inject
+    @Named("onDataStoredCompleted")
+    lateinit var onDataStoredCompletedUseCase: OnEventUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -44,7 +51,13 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.calendarFragment, R.id.standingsFragment))
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.calendarFragment,
+                R.id.standingsFragment
+            )
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
@@ -56,16 +69,13 @@ class MainActivity : AppCompatActivity() {
     private suspend fun setupApp() {
         Log.d(TAG, "setupApp() is called.")
         try {
-            repo.updateSeasonRaces()
-            repo.updateLastRace()
-            repo.updateDriverStandings()
-            repo.updateConstructorStandings()
+            onStartUpUseCase()
         } catch (e: Exception) {
 //            Snackbar.make(binding.root, "Connection Error", Snackbar.LENGTH_SHORT).show()
             Toast.makeText(this, "Connection Error", Toast.LENGTH_SHORT).show()
             Log.d(TAG, "Error is ${e.message}")
         }
-        repo.dataStoredCompleted()
+        onDataStoredCompletedUseCase()
         Log.d(TAG, "setupApp() has finished.")
     }
 }

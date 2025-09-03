@@ -16,6 +16,8 @@ import com.example.gabbinete.followone2.domain.DriverStandings
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+private const val TAG = "DriverStandingsFragment"
+
 @AndroidEntryPoint
 class DriverStandingsFragment : Fragment() {
 
@@ -30,7 +32,12 @@ class DriverStandingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDriverStandingsBinding.inflate(inflater, container, false)
-        adapter = StandingsAdapter()
+        adapter = StandingsAdapter(
+            DriverListener { driver ->
+                viewModel.navigateToDriverProfile(driver)
+                Log.d(TAG, "navigateToDriverProfile is called. Driver is: ${driver.driverId}")
+            }
+        )
 
         return binding.root
     }
@@ -41,6 +48,9 @@ class DriverStandingsFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect { state ->
+                    binding.driverStandingsProgressBar.visibility = if (state.isLoading) View.VISIBLE else View.INVISIBLE
+                    binding.standingsList.visibility = if (state.isLoading) View.INVISIBLE else View.VISIBLE
+
                     state.driverStandings?.let {
                         setupStandingViews(it)
                     }

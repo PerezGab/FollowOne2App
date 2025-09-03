@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gabbinete.followone2.databinding.StandingListItemBinding
+import com.example.gabbinete.followone2.domain.Driver
 import com.example.gabbinete.followone2.domain.DriverStandings
 import com.example.gabbinete.followone2.domain.Standings
 
 private const val TAG = "DriverStandingsAdapter"
 
-class StandingsAdapter : RecyclerView.Adapter<StandingsAdapter.DriverStandingsViewHolder>() {
+class StandingsAdapter(private val clickListener: DriverListener) :
+    RecyclerView.Adapter<StandingsAdapter.DriverStandingsViewHolder>() {
 
     private val list = mutableListOf<Standings>()
 
@@ -27,18 +29,22 @@ class StandingsAdapter : RecyclerView.Adapter<StandingsAdapter.DriverStandingsVi
 
     override fun onBindViewHolder(holder: DriverStandingsViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder is called")
-        holder.bind(list[position] as DriverStandings)
+        holder.bind(list[position] as DriverStandings, clickListener)
     }
 
     class DriverStandingsViewHolder private constructor(private val binding: StandingListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: DriverStandings) {
+        fun bind(item: DriverStandings, clickListener: DriverListener) {
             Log.d(TAG, "DriverStandingsViewHolder.bind() is called")
-            binding.finalPositionText.text = item.positionText
-            item.driver.mapFlag?.let { binding.flagImage.setImageResource(it) }
-            binding.nameText.text = item.driver.familyName
-            binding.constructorText.text = item.constructors[0].name
-            binding.pointsText.text = item.points
+
+            binding.apply {
+                finalPositionText.text = item.positionText
+                this.clickListener = clickListener
+                item.driver.mapFlag?.let { flagImage.setImageResource(it) }
+                nameText.text = item.driver.familyName
+                constructorText.text = item.constructors[0].name
+                pointsText.text = item.points
+            }
         }
 
         companion object {
@@ -60,4 +66,8 @@ class StandingsAdapter : RecyclerView.Adapter<StandingsAdapter.DriverStandingsVi
         list.addAll(standingsList)
         notifyDataSetChanged()
     }
+}
+
+class DriverListener(val clickListener: (item: Driver) -> Unit) {
+    fun onClick(driver: Driver) = clickListener(driver)
 }

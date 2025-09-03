@@ -2,6 +2,7 @@ package com.example.gabbinete.followone2.ui.standings.drivers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gabbinete.followone2.domain.Driver
 import com.example.gabbinete.followone2.domain.DriverStandings
 import com.example.gabbinete.followone2.use_case.GetTablesUseCase
 import com.example.gabbinete.followone2.util.Response
@@ -17,7 +18,7 @@ class DriverStandingsFragmentViewModel @Inject constructor(
     private val getDriverStandingsUseCase: GetTablesUseCase<DriverStandings>
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(DriverStandingsFragmentState(null, true))
+    private val _state = MutableStateFlow(DriverStandingsFragmentState(null, true, null))
     val state = _state.asStateFlow()
 
     init {
@@ -51,6 +52,14 @@ class DriverStandingsFragmentViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun navigateToDriverProfile(driver: Driver) {
+        viewModelScope.launch { _state.update { it.copy(navigateToDriverProfile = driver) } }
+    }
+
+    fun onDriverProfileNavigated() {
+        viewModelScope.launch { _state.update { it.copy(navigateToDriverProfile = null) } }
     }
 
 

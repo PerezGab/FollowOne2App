@@ -22,5 +22,6 @@ object DatabaseModule {
     fun databaseProvider(app: Application): F1Dao =
         Room.databaseBuilder(app, F1Database::class.java, "follow-one-db")
             .addTypeConverter(Converters(GsonParser(Gson())))
+            .addMigrations(F1Database.migration1To2)
             .build().f1Dao()
 }

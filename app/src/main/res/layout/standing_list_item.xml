@@ -1,80 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    android:background="@color/md_theme_light_surfaceVariant"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
-    app:cardMaxElevation="8dp"
-    app:cardPreventCornerOverlap="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="driver"
+            type="com.example.gabbinete.followone2.domain.Driver" />
+
+        <variable
+            name="clickListener"
+            type="com.example.gabbinete.followone2.ui.standings.drivers.DriverListener" />
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="2dp">
+        android:layout_margin="2dp"
+        android:onClick="@{() -> clickListener.onClick(driver)}"
+        android:background="@color/md_theme_light_surfaceVariant"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="8dp"
+        app:cardPreventCornerOverlap="true">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/final_position_text"
-            android:layout_width="42dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:fontFamily="@font/prompt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/flag_image"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="1" />
+            android:orientation="horizontal"
+            android:padding="2dp">
 
-        <ImageView
-            android:id="@+id/flag_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/item_flag"
-            android:padding="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/final_position_text"
-            app:layout_constraintStart_toEndOf="@+id/final_position_text"
-            app:layout_constraintTop_toTopOf="@+id/final_position_text"
-            app:layout_constraintVertical_bias="0.333"
-            tools:src="@drawable/flag_ned" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/final_position_text"
+                android:layout_width="42dp"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:textColor="@color/md_theme_light_onSurface"
+                android:textSize="24sp"
+                app:fontFamily="@font/asap_condensed_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/flag_image"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:textSize="24sp"
-            app:fontFamily="@font/prompt"
-            app:layout_constraintBaseline_toBaselineOf="@+id/final_position_text"
-            app:layout_constraintStart_toEndOf="@+id/flag_image"
-            tools:text="Verstappen" />
+            <ImageView
+                android:id="@+id/flag_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/item_flag"
+                android:padding="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/final_position_text"
+                app:layout_constraintStart_toEndOf="@+id/final_position_text"
+                app:layout_constraintTop_toTopOf="@+id/final_position_text"
+                app:layout_constraintVertical_bias="0.333"
+                tools:src="@drawable/flag_ned" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/constructor_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            app:fontFamily="@font/prompt"
-            app:layout_constraintBaseline_toBaselineOf="@+id/name_text"
-            app:layout_constraintStart_toEndOf="@+id/name_text"
-            tools:text="Red Bull" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textColor="@color/md_theme_light_onSurface"
+                android:textSize="24sp"
+                app:fontFamily="@font/asap_condensed_medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/final_position_text"
+                app:layout_constraintStart_toEndOf="@+id/flag_image"
+                tools:text="Verstappen" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/points_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:textSize="24sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/constructor_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            tools:text="236" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/constructor_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textColor="@color/md_theme_light_onSurface"
+                app:fontFamily="@font/asap_condensed_medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/name_text"
+                app:layout_constraintStart_toEndOf="@+id/name_text"
+                tools:text="Red Bull" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/points_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textColor="@color/md_theme_light_onSurface"
+                android:textSize="24sp"
+                app:fontFamily="@font/asap_condensed_medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/constructor_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="236" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

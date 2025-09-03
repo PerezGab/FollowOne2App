@@ -1,9 +1,22 @@
 package com.example.gabbinete.followone2.di
 
 import com.example.gabbinete.followone2.domain.ConstructorStandings
+import com.example.gabbinete.followone2.domain.Driver
 import com.example.gabbinete.followone2.domain.DriverStandings
 import com.example.gabbinete.followone2.domain.GrandPrix
-import com.example.gabbinete.followone2.use_case.*
+import com.example.gabbinete.followone2.use_case.GetByIdUseCase
+import com.example.gabbinete.followone2.use_case.GetConstructorStandingsUseCase
+import com.example.gabbinete.followone2.use_case.GetDriverByIdUseCase
+import com.example.gabbinete.followone2.use_case.GetDriverStandingsUseCase
+import com.example.gabbinete.followone2.use_case.GetLastRaceUseCase
+import com.example.gabbinete.followone2.use_case.GetRaceByRoundUseCase
+import com.example.gabbinete.followone2.use_case.GetSeasonRacesUseCase
+import com.example.gabbinete.followone2.use_case.GetTablesUseCase
+import com.example.gabbinete.followone2.use_case.IsConditionUseCase
+import com.example.gabbinete.followone2.use_case.IsDataStoredUseCase
+import com.example.gabbinete.followone2.use_case.OnDataStoredCompletedUseCase
+import com.example.gabbinete.followone2.use_case.OnEventUseCase
+import com.example.gabbinete.followone2.use_case.OnStartUpUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,22 +28,33 @@ import javax.inject.Named
 interface UseCaseModule {
 
     @Binds
-    @Named("getSeasonRaces")
-    fun getSeasonRacesUseCaseBinder(getSeasonRacesUseCase: GetSeasonRacesUseCase): GetTablesUseCase<GrandPrix>
+    @Named("getSeasonRacesUseCase")
+    fun bindGetSeasonRacesUseCase(getSeasonRacesUseCase: GetSeasonRacesUseCase): GetTablesUseCase<GrandPrix>
 
     @Binds
-    @Named("getLastRace")
-    fun getLastRaceUseCaseBinder(getLastRaceUseCase: GetLastRaceUseCase): GetTablesUseCase<GrandPrix>
+    @Named("getLastRaceUseCase")
+    fun bindGetLastRaceUseCase(getLastRaceUseCase: GetLastRaceUseCase): GetTablesUseCase<GrandPrix>
 
     @Binds
-    fun getDriverStandingsUseCaseBinder(getDriverStandingsUseCase: GetDriverStandingsUseCase): GetTablesUseCase<DriverStandings>
+    fun bindGetDriverStandingsUseCase(getDriverStandingsUseCase: GetDriverStandingsUseCase): GetTablesUseCase<DriverStandings>
 
     @Binds
-    fun getConstructorStandingsUseCaseBinder(getConstructorStandingsUseCase: GetConstructorStandingsUseCase): GetTablesUseCase<ConstructorStandings>
+    fun bindGetConstructorStandingsUseCase(getConstructorStandingsUseCase: GetConstructorStandingsUseCase): GetTablesUseCase<ConstructorStandings>
 
     @Binds
-    fun isDataStoredUseCaseBinder(isDataStoredUseCase: IsDataStoredUseCase): IsConditionUseCase<Boolean>
+    fun bindIsDataStoredUseCase(isDataStoredUseCase: IsDataStoredUseCase): IsConditionUseCase<Boolean>
 
     @Binds
-    fun getRaceResultsByRoundUseCaseBinder(getRaceByRoundUseCase: GetRaceByRoundUseCase): GetByIdUseCase<GrandPrix>
+    fun bindGetRaceResultsByRoundUseCase(getRaceByRoundUseCase: GetRaceByRoundUseCase): GetByIdUseCase<GrandPrix>
+
+    @Binds
+    fun bindGetDriverProfileByNameUseCase(getDriverProfileByIdUseCase: GetDriverByIdUseCase): GetByIdUseCase<Driver>
+
+    @Binds
+    @Named("onStartUp")
+    fun bindOnStartUpUseCase(onStartUpUseCase: OnStartUpUseCase): OnEventUseCase
+
+    @Binds
+    @Named("onDataStoredCompleted")
+    fun bindOnDataStoredCompletedUseCase(onDataStoredCompletedUseCase: OnDataStoredCompletedUseCase): OnEventUseCase
 }

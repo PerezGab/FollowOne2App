@@ -48,7 +48,12 @@ fun List<NetworkConstructor>.toLocalConstructorList(): List<LocalConstructor> {
 }
 
 fun List<NetworkDriverStanding>.toLocalDriverStandings(): List<LocalDriverStandings> {
-    return map { it.toLocalDriverStandings() }
+    return mapIndexed { index, networkDriverStanding ->
+        val position = networkDriverStanding.position?.takeIf { it.isNotBlank() }
+            ?: (index + 1).toString()
+
+        networkDriverStanding.toLocalDriverStandings(position)
+    }
 }
 
 fun List<NetworkConstructorStanding>.toLocalConstructorStandings(): List<LocalConstructorStandings> {
@@ -67,7 +72,7 @@ fun List<NetworkRaceResult>.toDomainRaceResultsList(): List<RaceResults> {
 fun String.formatDate(): String {
         val formatParser = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val dateParsed = LocalDate.parse(this@formatDate, formatParser)
-        val result = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val result = DateTimeFormatter.ofPattern("dd MMM")
         return dateParsed.format(result)
     }
 

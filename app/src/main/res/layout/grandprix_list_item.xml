@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:onClick="@{() -> clickListener.onClick(grandPrix)}"
+        android:padding="2dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardMaxElevation="8dp"
@@ -27,21 +28,39 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dp">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/date_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/prompt"
-                android:textAlignment="center"
+            <LinearLayout
+                android:id="@+id/frame_container"
+                android:layout_width="60dp"
+                android:layout_height="0dp"
+                android:background="@color/md_theme_dark_primaryContainer"
+                android:orientation="vertical"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/grand_prix_date_sample" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/asap_condensed_medium"
+                    android:textAlignment="center"
+                    android:textColor="@color/md_theme_dark_onPrimaryContainer"
+                    tools:text="@string/grand_prix_date_sample" />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/calendar_grand_prix_flag"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="@string/grand_prix_country_flag_description"
+                    android:elevation="4dp"
+                    tools:src="@drawable/flag_arg"/>
+
+            </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/round_text"
@@ -49,21 +68,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:fontFamily="@font/prompt"
+                android:fontFamily="@font/asap_condensed_medium"
                 android:textColor="@color/md_theme_light_tertiary"
-                app:layout_constraintStart_toEndOf="@+id/date_text"
+                app:layout_constraintStart_toEndOf="@+id/frame_container"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Round 1" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/grand_prix_name_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/prompt"
+                android:fontFamily="@font/asap_condensed_medium"
+                android:textColor="@color/md_theme_light_onSurface"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/date_text"
+                app:layout_constraintStart_toEndOf="@+id/frame_container"
                 app:layout_constraintTop_toBottomOf="@+id/round_text"
                 tools:text="@string/grand_prix_name_sample" />
 
@@ -73,9 +93,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/prompt"
+                android:fontFamily="@font/asap_condensed_medium"
                 android:textColor="@color/md_theme_light_secondary"
-                app:layout_constraintStart_toEndOf="@id/date_text"
+                app:layout_constraintStart_toEndOf="@id/frame_container"
                 app:layout_constraintTop_toBottomOf="@id/grand_prix_name_text"
                 tools:text="@string/grand_prix_circuit_sample" />
 

@@ -15,7 +15,7 @@ import javax.inject.Named
 
 @HiltViewModel
 class CalendarFragmentViewModel @Inject constructor(
-    @Named("getSeasonRaces") private val getSeasonRacesUseCase: GetTablesUseCase<GrandPrix>
+    @Named("getSeasonRacesUseCase") private val getSeasonRacesUseCase: GetTablesUseCase<GrandPrix>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(CalendarFragmentState(null, true, null))
@@ -50,11 +50,11 @@ class CalendarFragmentViewModel @Inject constructor(
     }
 
     fun onGrandPrixClick(gp: GrandPrix) {
-        _state.update { it.copy(navigateToGrandPrixProfile = gp) }
+        viewModelScope.launch { _state.update { it.copy(navigateToGrandPrixProfile = gp) } }
     }
 
     fun onGrandPrixNavigated() {
-        _state.update { it.copy(navigateToGrandPrixProfile = null) }
+        viewModelScope.launch { _state.update { it.copy(navigateToGrandPrixProfile = null) } }
     }
 }
 

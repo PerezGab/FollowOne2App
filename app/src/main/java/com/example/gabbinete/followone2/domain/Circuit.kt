@@ -74,7 +74,7 @@ data class Location(
             "Belgium" -> R.drawable.flag_bel
             "Italy" -> R.drawable.flag_ita
             "Singapore" -> R.drawable.flag_sgp
-            "Qatar" -> null
+            "Qatar" -> R.drawable.flag_qat
             "Brazil" -> R.drawable.flag_bra
             "UAE" -> R.drawable.flag_uae
             else -> null
