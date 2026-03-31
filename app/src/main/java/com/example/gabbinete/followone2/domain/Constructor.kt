@@ -15,18 +15,17 @@ data class Constructor(
     @IgnoredOnParcel
     val logo: Int? =
         when (name) {
-            "Red Bull" -> R.drawable.logo_red_bull
+            "Red Bull" -> R.drawable.logo_redbull
             "Ferrari" -> R.drawable.logo_ferrari
             "Mercedes" -> R.drawable.logo_mercedes
             "Alpine F1 Team" -> R.drawable.logo_alpine
             "McLaren" -> R.drawable.logo_mclaren
-            "Alfa Romeo" -> R.drawable.logo_alfa_romeo
-            "Aston Martin" -> R.drawable.logo_aston_martin
+            "Aston Martin" -> R.drawable.logo_astonmartin
             "Haas F1 Team" -> R.drawable.logo_haas
-            "AlphaTauri" -> R.drawable.logo_alpha_tauri
             "Williams" -> R.drawable.logo_williams
-            "Sauber" -> R.drawable.logo_kick_sauber
-            "RB F1 Team" -> R.drawable.logo_racing_bulls
+            "RB F1 Team" -> R.drawable.logo_racingbulls
+            "Audi" -> R.drawable.logo_audi
+            "Cadillac F1 Team" -> R.drawable.logo_cadillac
             else -> null
         }
 }
